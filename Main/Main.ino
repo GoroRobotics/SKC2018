@@ -8,7 +8,7 @@ using, be sure to use another PWM capable pin. (denoted by ~)
 #define LED LED_BUILTIN		// LED is the built in LED pin
 int brightness = 0;			// how bright the LED is
 int fadeAmount = 5;			// how many points to fade the LED by
-int speed = 30;				//the speed of the fade (in ms)
+int fadespeed  = 15;		//the speed of the fade (in ms)
 	
 
 void setup() {
@@ -27,5 +27,5 @@ void loop() {
 		fadeAmount = -fadeAmount;
 	}//end if
 	
-	delay(speed);								// wait for 30 milliseconds to see the dimming effect
+	delay(fadespeed);								// wait for (speed) milliseconds to see the dimming effect
 }//end loop
