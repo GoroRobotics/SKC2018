@@ -1,3 +1,12 @@
+/*-----( Soccer 2018 )-----*/
+//This is the Goro Robotics 2018 Main Code
+
+//---Team Members---
+//   Luka Borland - Lye(lukabl@icloud.com)
+//   Christopher Dirks (Christopher@dirksonline.net
+//   Alex Facer (alex.Facer@gmail.com)
+
+
 /*-----( Import needed libraries )-----*/
 #include <Wire.h>
 #include <NewliquidCrystal\LiquidCrystal_I2C.h>
@@ -27,7 +36,7 @@ void setup() {
 	lcd.setCursor(2, 0);		// NOTE: Cursor Position: (CHAR, LINE) start at 0
 	lcd.print("GORO PHEONIX");
 	delay(800);
-	void Scroll_Away_Text();
+	scroll_Away_Text();
 
 	//- Subtitle)-
 	lcd.setCursor(2, 0);
@@ -35,7 +44,7 @@ void setup() {
 	lcd.setCursor(3, 1);
 	lcd.print("the ashes");
 	delay(800);
-	void Scroll_Away_Text();
+	scroll_Away_Text();
 
 	
 }//end setup
@@ -45,20 +54,20 @@ void setup() {
 void loop() {// the loop routine runs over and over again forever
 	
 	//---   LED FADE    ---
-	analogWrite(LED, brightness);					// set the brightness of the led:
-	brightness = brightness + fadeAmount;			// change the brightness for next time through the loop:
+	analogWrite(LED, brightness);				// set the brightness of the led:
+	brightness = brightness + fadeAmount;		// change the brightness for next time through the loop:
 	
 	if (brightness <= 0 || brightness >= 255){	// reverse the direction of the fading at the ends of the fade:
 		fadeAmount = -fadeAmount;
 	}//end if
 	delay(fadespeed);							// wait for (speed) milliseconds to see the dimming effect
-
+	
 }//end loop
 
 
-void Scroll_Away_Text(){//---Scroll away text to the left of the screen---
-  
-	for (int i = 0; i< 16; i++) {
+void scroll_Away_Text(){//---Scroll away text to the left of the screen---
+
+	for (int i = 0; i<16; i++) {
 		lcd.scrollDisplayLeft();
 		delay(Scroll_Speed);
 	}//end for
