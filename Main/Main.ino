@@ -3,12 +3,13 @@
 //This is the Goro Robotics 2018 Main Code
 
 //---Team Members---
-//   Luka Borland - Lye(lukabl@icloud.com)
-//   Christopher Dirks (Christopher@dirksonline.net
+//   Luka Borland Lye(lukabl@icloud.com)
+//   Christopher Dirks (Christopher@dirksonline.net)
 //   Alex Facer (alex.Facer@gmail.com)
 
 
 /*-----( Import needed libraries )-----*/
+#include "MenuItem.h"
 #include "Menu.h"
 #include <Wire.h>
 #include <NewliquidCrystal\LiquidCrystal_I2C.h>
@@ -32,7 +33,10 @@ LiquidCrystal_I2C lcd(LCD_I2C_Adress, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  //Set 
 void setup() {
 	//Instantiate Root Menu Object
 	Menu rootMenu;
-
+	//Instantiate Menu Item Object
+	MenuItem exampleItem;
+	//add menu item to root menu
+	rootMenu.add(exampleItem);
 
 	
 	//===============(Original Code)===================================================

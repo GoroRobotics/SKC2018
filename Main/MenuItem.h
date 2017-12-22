@@ -1,9 +1,7 @@
-// Menu.h
+// MenuItem.h
 
-#ifndef _MENU_h
-#define _MENU_h
-
-#include "MenuItem.h"
+#ifndef _MENUITEM_h
+#define _MENUITEM_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
 	#include "Arduino.h"
@@ -11,15 +9,13 @@
 	#include "WProgram.h"
 #endif
 
-class Menu
+class MenuItem
 {
  protected:
 
 
  public:
 	void init();
-	void add(MenuItem item);
-
 };
 
 #endif
