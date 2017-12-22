@@ -9,6 +9,7 @@
 
 
 /*-----( Import needed libraries )-----*/
+#include "Menu.h"
 #include <Wire.h>
 #include <NewliquidCrystal\LiquidCrystal_I2C.h>
 
@@ -29,6 +30,12 @@ LiquidCrystal_I2C lcd(LCD_I2C_Adress, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  //Set 
 
 
 void setup() {
+	//Instantiate Root Menu Object
+	Menu rootMenu;
+
+
+	
+	//===============(Original Code)===================================================
 	
 	//---   Setup (Pins, LCD, ect)    ---
 	pinMode(LED, OUTPUT);
