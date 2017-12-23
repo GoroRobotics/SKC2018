@@ -21,10 +21,6 @@
 
 
 #define LED LED_BUILTIN		// LED is the built in LED pin
-int brightness = 0;			// how bright the LED is
-int fadeAmount = 5;			// how many points to fade the LED by
-int fadespeed  = 15;		//the speed of the fade (in ms)
-
 
 /*-----(       Setup I2C        )-----*/
 LiquidCrystal_I2C lcd(LCD_I2C_Adress, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  //Set the LCD I2C address
@@ -33,18 +29,16 @@ LiquidCrystal_I2C lcd(LCD_I2C_Adress, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  //Set 
 void setup() {
 	//Instantiate Root Menu Object
 	Menu rootMenu;
-	//Instantiate Menu Item Object
-	MenuItem exampleItem;
-	//add menu item to root menu
-	rootMenu.add(exampleItem);
+	//Create Menu Items and add to root menu
+	rootMenu.add(new MenuItem("1 Item 1"));
+	rootMenu.add(new MenuItem("2 Item 2"));
+	rootMenu.add(new MenuItem("3 Item 3"));
+	rootMenu.add(new MenuItem("4 Item 4"));
 
-	
 	//===============(Original Code)===================================================
 	
 	//---   Setup (Pins, LCD, ect)    ---
-	pinMode(LED, OUTPUT);
 	lcd.begin(16, 2);			// initialize the lcd for 16 chars 2 lines
-
 
 	//---   Title Screen   ---
 	lcd.setCursor(2, 0);		// NOTE: Cursor Position: (CHAR, LINE) start at 0
@@ -59,23 +53,15 @@ void setup() {
 	lcd.print("the ashes");
 	delay(800);
 	scroll_Away_Text();
+	//===============(Original Code)===================================================
+
+	rootMenu.start(lcd);
 
 }//end setup
 
 
 // the loop routine runs over and over again forever:
 void loop() {
-	
-	//---   LED FADE    ---
-	analogWrite(LED, brightness);				// set the brightness of the led:
-	brightness = brightness + fadeAmount;		// change the brightness for next time through the loop:
-	
-	if (brightness <= 0 || brightness >= 255){	// reverse the direction of the fading at the ends of the fade:
-		fadeAmount = -fadeAmount;
-	}//end if
-
-	delay(fadespeed);							// wait for (speed) milliseconds to see the dimming effect
-	
 }//end loop
 
 

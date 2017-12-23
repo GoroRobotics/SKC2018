@@ -5,18 +5,22 @@
 #include "Menu.h"
 #include "MenuItem.h"
 
-#define MAX_MENU_LENGTH 12
-
-MenuItem items[MAX_MENU_LENGTH];
-int numberOfItems;
-
-void Menu::init(){
-	numberOfItems = 0;
+Menu::Menu(){//constructor
+	currentItem = NULL;
 }
 
-void Menu::add(MenuItem item) {
-	if (numberOfItems >= MAX_MENU_LENGTH){ return; } //Don't add too many items to array
+void Menu::add(MenuItem * item) {
+	if (currentItem != NULL) { item->insertAfter(currentItem); }
+	currentItem = item;
+}
 
-	items[numberOfItems] = item;
-	numberOfItems++;
-}//end add()
+void Menu::start(LiquidCrystal_I2C lcd)
+{
+	currentItem = currentItem->next(); //go back to first item added
+	lcd.setCursor(0, 0);		// NOTE: Cursor Position: (CHAR, LINE) start at 0
+	lcd.print(currentItem->displayText());
+
+	lcd.setCursor(0, 1);		// NOTE: Cursor Position: (CHAR, LINE) start at 0
+	lcd.print(currentItem->next()->displayText());
+}
+

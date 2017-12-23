@@ -4,6 +4,7 @@
 #define _MENU_h
 
 #include "MenuItem.h"
+#include <NewliquidCrystal\LiquidCrystal_I2C.h>
 
 #if defined(ARDUINO) && ARDUINO >= 100
 	#include "Arduino.h"
@@ -13,13 +14,16 @@
 
 class Menu
 {
- protected:
+	private:
+		MenuItem * currentItem;
+
+	protected:
 
 
- public:
-	void init();
-	void add(MenuItem item);
-
+	public:
+		Menu(); //constructor
+		void add(MenuItem * item);
+		void start(LiquidCrystal_I2C lcd);
 };
 
 #endif

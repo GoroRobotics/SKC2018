@@ -9,13 +9,22 @@
 	#include "WProgram.h"
 #endif
 
-class MenuItem
-{
- protected:
+class MenuItem{
+
+	private:
+		const char * _displayText;
+		MenuItem * _next;
+		MenuItem * _prev;
+
+	protected:
 
 
- public:
-	void init();
+	public:
+		MenuItem(const char * displayText);//constructor
+		void insertAfter(MenuItem * insertAfter);
+		MenuItem * next();
+		MenuItem * prev();
+		const char * displayText();
 };
 
 #endif
