@@ -67,7 +67,9 @@ void Menu::show()
 	lcd.clear();
 	//Display the current menu items.
 	lcd.setCursor(0, 0);
+	lcd.print(">");
+	lcd.setCursor(1, 0);
 	lcd.print(currentItem->displayText());
-	lcd.setCursor(0, 1);
+	lcd.setCursor(1, 1);
 	lcd.print(currentItem->next()->displayText());
 }

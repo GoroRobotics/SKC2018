@@ -28,6 +28,25 @@
 LiquidCrystal_I2C lcd(LCD_I2C_Adress, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  //Set the LCD I2C address
 Menu rootMenu;
 Buttons buttons;
+
+
+
+void spashScreen(){//display goro robotics on lcd with animation 
+	/*-----( Splash Screen [To be moved])-----*/
+	//---   Title Screen   ---
+	lcd.setCursor(2, 0);		// NOTE: Cursor Position: (CHAR, LINE) start at 0
+	lcd.print("GORO PHEONIX");
+	delay(500);
+	scroll_Away_Text();
+
+	//- Subtitle)-
+	lcd.setCursor(2, 0);
+	lcd.print("Rising from");
+	lcd.setCursor(3, 1);
+	lcd.print("the ashes");
+	delay(500);
+	scroll_Away_Text();
+}
 void scroll_Away_Text() {//---Scroll away text to the left of the screen---
 
 	for (int i = 0; i<16; i++) {
@@ -50,10 +69,12 @@ void setup() {
 	//rootMenu.addOutput(serialPort)
 	
 	//Create Menu Items and add to root menu
-	rootMenu.add(new MenuItem("1 Item 1"));
-	rootMenu.add(new MenuItem("2 Item 2"));
-	rootMenu.add(new MenuItem("3 Item 3"));
-	rootMenu.add(new MenuItem("4 Item 4"));
+	rootMenu.add(new MenuItem("  Soccer 2018  "));
+	rootMenu.add(new MenuItem(" -Team Members-"));
+	rootMenu.add(new MenuItem("Luka BorlandLye"));
+	rootMenu.add(new MenuItem("Chris Dirks    "));
+	rootMenu.add(new MenuItem("Alex Facer     "));
+	
 		
 
 	/*-----( Other Initializatons [to be added to classes...])-----*/
@@ -61,24 +82,8 @@ void setup() {
 	lcd.begin(16, 2);			// initialize the lcd for 16 chars 2 lines
 	
 
-	/*-----( Splash Screen [To be moved])-----*/
-	//---   Title Screen   ---
-	lcd.setCursor(2, 0);		// NOTE: Cursor Position: (CHAR, LINE) start at 0
-	lcd.print("GORO PHEONIX");
-	delay(500);
-	scroll_Away_Text();
-
-	//- Subtitle)-
-	lcd.setCursor(2, 0);
-	lcd.print("Rising from");
-	lcd.setCursor(3, 1);
-	lcd.print("the ashes");
-	delay(500);
-	scroll_Away_Text();
-
-
+	spashScreen();//display splash screen on LCD
 	rootMenu.start();//start menu system
-	delay(1000);
 }//end setup
 
 
