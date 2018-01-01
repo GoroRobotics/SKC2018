@@ -20,6 +20,21 @@
 #define LCD_I2C_Adress 0x3F //lcd adress on the I2C network
 #define Scroll_Speed 15 //the speed of scroll text function (ms per charactor)
 #define LED LED_BUILTIN		// LED is the built in LED pin
+
+/*-----(    Button Settings       )-----*/
+#define BUTTON_UP_MAX 150
+#define BUTTON_UP_MIN 138
+#define BUTTON_DOWN_MAX 335
+#define BUTTON_DOWN_MIN	325
+#define BUTTON_LEFT_MAX 0 
+#define BUTTON_LEFT_MIN	0
+#define BUTTON_RIGHT_MAX 513
+#define BUTTON_RIGHT_MIN 501
+#define BUTTON_ENTER_MAX 747
+#define BUTTON_ENTER_MIN 735
+#define NO_BUTTOM_MAX 1024
+#define NO_BUTTON_MIN 800
+
 /* We may want to shift settings to SD card and be abe to be changed using the menu.  */
 
 /*-----(       Variables        )-----*/
@@ -80,19 +95,34 @@ void setup() {
 // the loop routine runs over and over again forever:
 void loop() {
 
-	/*-----( Read Buttons (Analog) to serial [To be moved])-----*/
-	//read the input on analog pin 0:
-	//int sensorValue = analogRead(A0);
-	//print out the value you read:
-	//Serial.println(sensorValue);
-	//delay for stabilty
-	//delay(20);
-
-	lcd.setCursor(0, 0);
-	lcd.print(buttonInteruptEvent);
+	lcd.setCursor(1, 1);
+	lcd.print("Press Left Key");
 	buttonInteruptEvent = false;
-	delay(500);
 
+	while (!buttonInteruptEvent) {
+		//Print the button state while no buttom is pressed
+		lcd.setCursor(0, 0);
+		lcd.print("Button:");
+		lcd.setCursor(7, 0);
+		lcd.print(buttonInteruptEvent);
+	}//wait for key press
+	
+	delay(1000);
+		
+	int buttonValue;
+
+	do     
+	{//read buttons (analog) and display until key is released
+		buttonValue = analogRead(A0);
+		lcd.setCursor(7, 0);
+		lcd.print(buttonValue);
+	} while (buttonValue<NO_BUTTON_MIN);
+	
+	buttonInteruptEvent = false;
+	lcd.setCursor(7, 0);
+	lcd.print("Release");
+	delay(500);
+	lcd.clear();
 }//end loop
 
 
