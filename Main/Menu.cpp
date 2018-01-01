@@ -35,9 +35,27 @@ void Menu::process()
 
 		//Fetch next keystroke.
 		button = buttons.waitForNextKey();
+
 		switch (button) {
+		case LEFT:	
+			//Exit current menu [TODO]
+			break;
+		case UP:
+			//Scroll menu up
+			currentItem = currentItem->prev();
+			break;
+		case DOWN:
+			//Scroll menu down
+			currentItem = currentItem->next();
+			break;
+		case RIGHT:
+		case ENTER:	
+			//right and enter: execute selected menu item
+			break;
 		default:
+			//when all else fails
 			lcd.setCursor(0,1); lcd.print("UNKNOWN KEY: "); lcd.print(button); delay(1000);
+			break;
 		}//end switch
 
 	} while (!finished);
@@ -53,4 +71,3 @@ void Menu::show()
 	lcd.setCursor(0, 1);
 	lcd.print(currentItem->next()->displayText());
 }
-

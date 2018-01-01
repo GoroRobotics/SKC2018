@@ -28,6 +28,7 @@ private:
 	KEY buttonValue = NONE;
 	KEY lastKeyPressed = NONE;
 	int buttonAnalogValue = 0;
+	void print(KEY button);
 
 protected:
 

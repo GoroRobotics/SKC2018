@@ -9,6 +9,9 @@
 
 extern LiquidCrystal_I2C lcd;
 
+/*-----(       Macros       )-----*/
+#define MID(A,B) ((A+B)/2)
+
 /*-----(       Settings       )-----*/
 #define BUTTON_INTERUPT_PIN 2	// The digital pin the button board is connected to. (But only some of the buttons trigger the interupt)
 #define BUTTON_ANALOG_PIN A0	// The analog pin the button board is connected to. (Each button generates a different analog voltage when pressed)
@@ -23,7 +26,6 @@ extern LiquidCrystal_I2C lcd;
 #define BUTTON_NONE 	MID(1020,1024)
 
 /*-----(       Definitions       )-----*/
-#define MID(A,B) ((A+B)/2)
 //Midway boundaries between key press analaog values to use with less than evaluations.
 #define BUTTON_LEFT_LTBOUNDARY	MID(BUTTON_LEFT ,BUTTON_UP)
 #define BUTTON_UP_LTBOUNDARY	MID(BUTTON_UP	,BUTTON_DOWN)
@@ -45,9 +47,6 @@ void buttonInteruptServiceRoutine(void)
 
 
 /*-----( Class Methods  )-----*/
-//TODO
-
-
 Buttons::Buttons()//constructor
 {
 	pinMode(BUTTON_INTERUPT_PIN, INPUT_PULLUP);
@@ -60,23 +59,20 @@ KEY Buttons::waitForNextKey()
 	waitForAllKeysReleased();
 
 	waitForAnyKeyPress();
-
-	lcd.setCursor(0, 1);	lcd.print("Key =           ");    lcd.setCursor(0, 4);
 	
 	//Button has been pressed, determine which button was pressed	
-		 if	(buttonAnalogValue <= BUTTON_LEFT_LTBOUNDARY)	{ buttonValue = LEFT;  lcd.print("LEFT  "); }
-	else if (buttonAnalogValue <= BUTTON_UP_LTBOUNDARY)		{ buttonValue = UP;	   lcd.print("UP    "); }
-	else if (buttonAnalogValue <= BUTTON_DOWN_LTBOUNDARY)	{ buttonValue = DOWN;  lcd.print("DOWN  "); }
-	else if (buttonAnalogValue <= BUTTON_RIGHT_LTBOUNDARY)	{ buttonValue = RIGHT; lcd.print("RIGHT "); }
-	else if (buttonAnalogValue <= BUTTON_ENTER_LTBOUNDARY)	{ buttonValue = ENTER; lcd.print("ENTER "); }
+		 if	(buttonAnalogValue <= BUTTON_LEFT_LTBOUNDARY)	{ buttonValue = LEFT; }
+	else if (buttonAnalogValue <= BUTTON_UP_LTBOUNDARY)		{ buttonValue = UP;	  }
+	else if (buttonAnalogValue <= BUTTON_DOWN_LTBOUNDARY)	{ buttonValue = DOWN; }
+	else if (buttonAnalogValue <= BUTTON_RIGHT_LTBOUNDARY)	{ buttonValue = RIGHT;}
+	else if (buttonAnalogValue <= BUTTON_ENTER_LTBOUNDARY)	{ buttonValue = ENTER;}
 	
-	lcd.print(buttonAnalogValue);
-
 	//wait for key to be released before continuing
 	waitForAllKeysReleased();
 
 	return lastKeyPressed;
 }
+
 
 //sets buttonValue to KEY value when done
 void Buttons::waitForAnyKeyPress()
@@ -100,3 +96,32 @@ void Buttons::waitForAllKeysReleased()
 	buttonValue = NONE;
 }
 
+//prints the key on LCD (Good for Debuging)
+void Buttons::print(KEY button) {
+	lcd.setCursor(0, 1);	lcd.print("Key =           ");    lcd.setCursor(0, 4);
+
+	switch (button) {
+	case LEFT:
+		lcd.print("LEFT  ");
+		break;
+	case UP:
+		lcd.print("UP    ");
+		break;
+	case DOWN:
+		lcd.print("DOWN  ");
+		break;
+	case RIGHT:
+		lcd.print("RIGHT ");
+		break;
+	case ENTER:
+		lcd.print("ENTER ");
+		break;
+	case NONE:
+		lcd.print("NONE  ");
+		break;
+	default:
+		//when all else fails
+		lcd.setCursor(0, 1); lcd.print("UNKNOWN KEY: "); lcd.print(button); delay(1000);
+		break;
+	}//end switch
+}
