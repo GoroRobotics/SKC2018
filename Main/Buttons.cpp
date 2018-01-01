@@ -55,23 +55,44 @@ Buttons::Buttons()//constructor
 //Waits for next key to be pressed and released. Will not return KEY=NONE. Will initially wait for all keys to be released. 
 KEY Buttons::waitForNextKey()
 {
-	KEY buttonValue = LEFT;
-	int buttonAnalogVaue = 0;
-	do { //wait until button is released (aka KEYS=NONE)
-		buttonAnalogVaue = analogRead(BUTTON_ANALOG_PIN);
-	} while (buttonAnalogVaue < BUTTON_NONE_GTBOUNDARY);
+	waitForAllKeysReleased();
 
-	buttonValue = NONE;
-	lcd.print("All keys releasd"); delay(1000); 
+	waitForAnyKeyPress();
 
-/*BUTTON_LEFT_LTBOUNDARY
-BUTTON_UP_LTBOUNDARY
-BUTTON_DOWN_LTBOUNDARY
-BUTTON_RIGHT_LTBOUNDARY
-BUTTON_ENTER_LTBOUNDARY
+	//Button has been pressed, determine which button was pressed
+	lcd.setCursor(0, 1);	lcd.print("Key =           ");    lcd.setCursor(0, 4);
+		 if	(buttonAnalogValue <= BUTTON_LEFT_LTBOUNDARY)	{ buttonValue = LEFT;  lcd.print("LEFT  "); }
+	else if (buttonAnalogValue <= BUTTON_UP_LTBOUNDARY)		{ buttonValue = UP;	   lcd.print("UP    "); }
+	else if (buttonAnalogValue <= BUTTON_DOWN_LTBOUNDARY)	{ buttonValue = DOWN;  lcd.print("DOWN  "); }
+	else if (buttonAnalogValue <= BUTTON_RIGHT_LTBOUNDARY)	{ buttonValue = RIGHT; lcd.print("RIGHT "); }
+	else if (buttonAnalogValue <= BUTTON_ENTER_LTBOUNDARY)	{ buttonValue = ENTER; lcd.print("ENTER "); }
+	
+	lcd.print(buttonAnalogValue); delay(1000);
 
-*/
+	//wait for key to be released before continuing
+	waitForAllKeysReleased();
 
 	return buttonValue;
+}
+
+//sets buttonValue to KEY value when done
+void Buttons::waitForAnyKeyPress()
+{
+	do { //wait until a button is pressed
+		buttonAnalogValue = analogRead(BUTTON_ANALOG_PIN);
+	} while (buttonAnalogValue > BUTTON_NONE_GTBOUNDARY);
+
+	//TODO key debounce
+}
+
+//sets buttonValue = NONE when done
+void Buttons::waitForAllKeysReleased()
+{
+	do { //wait until button is released (aka KEYS=NONE)
+		buttonAnalogValue = analogRead(BUTTON_ANALOG_PIN);
+	} while (!(buttonAnalogValue > BUTTON_NONE_GTBOUNDARY));
+
+	buttonValue = NONE;
+	lcd.setCursor(0, 1); lcd.print("All keys releasd"); delay(1000);
 }
 

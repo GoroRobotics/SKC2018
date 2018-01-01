@@ -25,12 +25,16 @@ enum KEY
 class Buttons{
  
 private:
-	
+	KEY buttonValue = NONE;
+	int buttonAnalogValue = 0;
+
 protected:
 
  public:
 	Buttons(); //constructor
 	KEY waitForNextKey(void);
+	void waitForAnyKeyPress();
+	void waitForAllKeysReleased();
 };
 
 #endif
