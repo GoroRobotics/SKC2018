@@ -15,6 +15,7 @@
 #include <Wire.h>
 #include <NewliquidCrystal\LiquidCrystal_I2C.h>
 
+
 /*-----(       Settings       )-----*/
 #define LED LED_BUILTIN		// LED is the built in LED pin
 #define LCD_I2C_Adress 0x3F //lcd adress on the I2C network
@@ -24,9 +25,9 @@
 
 
 /*-----( Instantiate Global Objects )-----*/
+LiquidCrystal_I2C lcd(LCD_I2C_Adress, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  //Set the LCD I2C address
 Menu rootMenu;
 Buttons buttons;
-LiquidCrystal_I2C lcd(LCD_I2C_Adress, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  //Set the LCD I2C address
 void scroll_Away_Text() {//---Scroll away text to the left of the screen---
 
 	for (int i = 0; i<16; i++) {

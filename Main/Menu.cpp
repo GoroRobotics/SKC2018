@@ -5,7 +5,10 @@
 #include "Menu.h"
 #include "MenuItem.h"
 #include "Buttons.h"
-#include "Global.h"
+#include <NewliquidCrystal\LiquidCrystal_I2C.h>
+
+extern LiquidCrystal_I2C lcd;
+extern Buttons buttons;
 
 Menu::Menu(){//constructor
 	currentItem = NULL;
@@ -25,16 +28,18 @@ void Menu::start()
 void Menu::process()
 {
 	boolean finished = false;
+	KEY button;
 	do
 	{
 		show();
 
 		lcd.setCursor(0, 1);//TO BE MOVED...
 
-							//Fetch next keystroke.
-		switch (buttons.waitForNextKey()) {
+		//Fetch next keystroke.
+		button = buttons.waitForNextKey();
+		switch (button) {
 		default:
-			lcd.print("ERR UNKNOWN KEY");
+			lcd.print("UNKNOWN KEY: "); lcd.print(button); delay(1000);
 		}//end switch
 
 	} while (!finished);
@@ -43,6 +48,7 @@ void Menu::process()
 
 void Menu::show()
 {
+	lcd.clear();
 	//Display the current menu items.
 	lcd.setCursor(0, 0);
 	lcd.print(currentItem->displayText());
