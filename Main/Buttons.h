@@ -26,6 +26,7 @@ class Buttons{
  
 private:
 	KEY buttonValue = NONE;
+	KEY lastKeyPressed = NONE;
 	int buttonAnalogValue = 0;
 
 protected:

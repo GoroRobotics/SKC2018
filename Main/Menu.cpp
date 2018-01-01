@@ -33,13 +33,11 @@ void Menu::process()
 	{
 		show();
 
-		lcd.setCursor(0, 1);//TO BE MOVED...
-
 		//Fetch next keystroke.
 		button = buttons.waitForNextKey();
 		switch (button) {
 		default:
-			lcd.print("UNKNOWN KEY: "); lcd.print(button); delay(1000);
+			lcd.setCursor(0,1); lcd.print("UNKNOWN KEY: "); lcd.print(button); delay(1000);
 		}//end switch
 
 	} while (!finished);

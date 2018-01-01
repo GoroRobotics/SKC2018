@@ -10,9 +10,9 @@
 extern LiquidCrystal_I2C lcd;
 
 /*-----(       Settings       )-----*/
-#define BUTTON_INTERUPT_PIN 2 // The digital pin the button board is connected to. (But only some of the buttons trigger the interupt)
-#define BUTTON_ANALOG_PIN A0 // The analog pin the button board is connected to. (Each button generates a different analog voltage when pressed)
-#define MID(A,B) ((A+B)/2)
+#define BUTTON_INTERUPT_PIN 2	// The digital pin the button board is connected to. (But only some of the buttons trigger the interupt)
+#define BUTTON_ANALOG_PIN A0	// The analog pin the button board is connected to. (Each button generates a different analog voltage when pressed)
+#define DEBOUNCE_DELAY 5		//milliseconds delay for analog value to settle
 
 //Analog range of values   (min,max)
 #define BUTTON_LEFT		MID(0,0)
@@ -22,6 +22,8 @@ extern LiquidCrystal_I2C lcd;
 #define BUTTON_ENTER	MID(735,747)
 #define BUTTON_NONE 	MID(1020,1024)
 
+/*-----(       Definitions       )-----*/
+#define MID(A,B) ((A+B)/2)
 //Midway boundaries between key press analaog values to use with less than evaluations.
 #define BUTTON_LEFT_LTBOUNDARY	MID(BUTTON_LEFT ,BUTTON_UP)
 #define BUTTON_UP_LTBOUNDARY	MID(BUTTON_UP	,BUTTON_DOWN)
@@ -59,20 +61,21 @@ KEY Buttons::waitForNextKey()
 
 	waitForAnyKeyPress();
 
-	//Button has been pressed, determine which button was pressed
 	lcd.setCursor(0, 1);	lcd.print("Key =           ");    lcd.setCursor(0, 4);
+	
+	//Button has been pressed, determine which button was pressed	
 		 if	(buttonAnalogValue <= BUTTON_LEFT_LTBOUNDARY)	{ buttonValue = LEFT;  lcd.print("LEFT  "); }
 	else if (buttonAnalogValue <= BUTTON_UP_LTBOUNDARY)		{ buttonValue = UP;	   lcd.print("UP    "); }
 	else if (buttonAnalogValue <= BUTTON_DOWN_LTBOUNDARY)	{ buttonValue = DOWN;  lcd.print("DOWN  "); }
 	else if (buttonAnalogValue <= BUTTON_RIGHT_LTBOUNDARY)	{ buttonValue = RIGHT; lcd.print("RIGHT "); }
 	else if (buttonAnalogValue <= BUTTON_ENTER_LTBOUNDARY)	{ buttonValue = ENTER; lcd.print("ENTER "); }
 	
-	lcd.print(buttonAnalogValue); delay(1000);
+	lcd.print(buttonAnalogValue);
 
 	//wait for key to be released before continuing
 	waitForAllKeysReleased();
 
-	return buttonValue;
+	return lastKeyPressed;
 }
 
 //sets buttonValue to KEY value when done
@@ -82,17 +85,18 @@ void Buttons::waitForAnyKeyPress()
 		buttonAnalogValue = analogRead(BUTTON_ANALOG_PIN);
 	} while (buttonAnalogValue > BUTTON_NONE_GTBOUNDARY);
 
-	//TODO key debounce
+	delay(DEBOUNCE_DELAY);
+	buttonAnalogValue = analogRead(BUTTON_ANALOG_PIN);
 }
 
-//sets buttonValue = NONE when done
+//sets buttonValue = NONE and updates lastKeyPressed when done
 void Buttons::waitForAllKeysReleased()
 {
 	do { //wait until button is released (aka KEYS=NONE)
 		buttonAnalogValue = analogRead(BUTTON_ANALOG_PIN);
 	} while (!(buttonAnalogValue > BUTTON_NONE_GTBOUNDARY));
 
+	lastKeyPressed = buttonValue;
 	buttonValue = NONE;
-	lcd.setCursor(0, 1); lcd.print("All keys releasd"); delay(1000);
 }
 
