@@ -19,7 +19,7 @@ void Menu::add(MenuItem * item) {
 void Menu::start()
 {
 	currentItem = currentItem->next(); //go back to first item added
-	process();
+	show();
 }
 
 void Menu::process()
@@ -27,11 +27,7 @@ void Menu::process()
 	boolean finished = false;
 	do
 	{
-		//Display the current menu items.
-		lcd.setCursor(0, 0);
-		lcd.print(currentItem->displayText());
-		lcd.setCursor(0, 1);
-		lcd.print(currentItem->next()->displayText());
+		show();
 
 		lcd.setCursor(0, 1);//TO BE MOVED...
 
@@ -43,5 +39,14 @@ void Menu::process()
 
 	} while (!finished);
 	
+}
+
+void Menu::show()
+{
+	//Display the current menu items.
+	lcd.setCursor(0, 0);
+	lcd.print(currentItem->displayText());
+	lcd.setCursor(0, 1);
+	lcd.print(currentItem->next()->displayText());
 }
 

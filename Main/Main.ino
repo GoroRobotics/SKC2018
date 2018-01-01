@@ -77,19 +77,20 @@ void setup() {
 
 
 	rootMenu.start();//start menu system
-
+	delay(1000);
 }//end setup
 
 
 // the loop routine runs over and over again forever:
 void loop() {
 
+	lcd.clear();
 	lcd.setCursor(0, 0);
 	lcd.print("Playing Soccer");
-	lcd.setCursor(1, 1);
+	lcd.setCursor(0, 1);
 	lcd.print("Press Left Key");
-	buttonInteruptEvent = false;//clear button interupt
-	
+	delay(1000);
+	buttonInteruptEvent = false;//clear button interupt flag
 	do {
 		//playing game...
 		delay(100);

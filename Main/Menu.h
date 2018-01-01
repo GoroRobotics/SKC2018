@@ -25,6 +25,7 @@ class Menu
 		void add(MenuItem * item);
 		void start();
 		void process();
+		void show();
 };
 
 #endif
