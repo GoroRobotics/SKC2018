@@ -12,6 +12,16 @@
 void buttonInteruptServiceRoutine(); 
 extern volatile byte buttonInteruptEvent;
 
+enum KEY
+{
+	NONE,	//no keys pressed
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN,
+	ENTER	//Far right button
+};
+
 class Buttons{
  
 private:
@@ -20,7 +30,7 @@ protected:
 
  public:
 	Buttons(); //constructor
-	
+	KEY waitForNextKey(void);
 };
 
 #endif

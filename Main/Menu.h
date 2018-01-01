@@ -23,7 +23,8 @@ class Menu
 	public:
 		Menu(); //constructor
 		void add(MenuItem * item);
-		void start(LiquidCrystal_I2C lcd);
+		void start();
+		void process();
 };
 
 #endif
