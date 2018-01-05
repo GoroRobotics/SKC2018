@@ -5,9 +5,9 @@
 #include "Menu.h"
 #include "MenuItem.h"
 #include "Buttons.h"
-#include <NewliquidCrystal\LiquidCrystal_I2C.h>
+#include "Display.h"
 
-extern LiquidCrystal_I2C lcd;
+extern Display display;
 extern Buttons buttons;
 
 Menu::Menu(){//constructor
@@ -50,11 +50,13 @@ void Menu::process()
 			break;
 		case RIGHT:
 		case ENTER:	
-			//right and enter: execute selected menu item
+			//right and enter: execute selected menu item. TODO!
 			break;
 		default:
 			//when all else fails
-			lcd.setCursor(0,1); lcd.print("UNKNOWN KEY: "); lcd.print(button); delay(1000);
+			display.print(0,1,"UNKNOWN KEY: "); 
+			display.print(13,1,String(button)); 
+			delay(1000);
 			break;
 		}//end switch
 
@@ -64,12 +66,8 @@ void Menu::process()
 
 void Menu::show()
 {
-	lcd.clear();
 	//Display the current menu items.
-	lcd.setCursor(0, 0);
-	lcd.print(">");
-	lcd.setCursor(1, 0);
-	lcd.print(currentItem->displayText());
-	lcd.setCursor(1, 1);
-	lcd.print(currentItem->next()->displayText());
+	display.print(1,currentItem->displayText(), currentItem->next()->displayText());
+	//overlay cursor
+	display.print(0, 0, String(">"));
 }

@@ -81,12 +81,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buttons.h" />
+    <ClInclude Include="Display.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="__vm\.Main.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buttons.cpp" />
+    <ClCompile Include="Display.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuItem.cpp" />
   </ItemGroup>

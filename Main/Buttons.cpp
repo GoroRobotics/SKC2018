@@ -5,9 +5,9 @@
 
 /*-----( Import needed stuff )-----*/
 #include "Buttons.h"
-#include <NewliquidCrystal\LiquidCrystal_I2C.h>
+#include "Display.h"
 
-extern LiquidCrystal_I2C lcd;
+extern Display display;
 
 /*-----(       Macros       )-----*/
 #define MID(A,B) ((A+B)/2)
@@ -98,30 +98,30 @@ void Buttons::waitForAllKeysReleased()
 
 //prints the key on LCD (Good for Debuging)
 void Buttons::print(KEY button) {
-	lcd.setCursor(0, 1);	lcd.print("Key =           ");    lcd.setCursor(0, 4);
+	display.print("Button = ");
 
 	switch (button) {
 	case LEFT:
-		lcd.print("LEFT  ");
+		display.print(0, 8, "LEFT  ");
 		break;
 	case UP:
-		lcd.print("UP    ");
+		display.print(0, 8, "UP    ");
 		break;
 	case DOWN:
-		lcd.print("DOWN  ");
+		display.print(0, 8, "DOWN  ");
 		break;
 	case RIGHT:
-		lcd.print("RIGHT ");
+		display.print(0, 8, "RIGHT ");
 		break;
 	case ENTER:
-		lcd.print("ENTER ");
+		display.print(0, 8, "ENTER ");
 		break;
 	case NONE:
-		lcd.print("NONE  ");
+		display.print(0, 8, "NONE  ");
 		break;
 	default:
 		//when all else fails
-		lcd.setCursor(0, 1); lcd.print("UNKNOWN KEY: "); lcd.print(button); delay(1000);
+		display.print("UNKNOWN KEY" + String(button)); delay(1000);
 		break;
 	}//end switch
 }
