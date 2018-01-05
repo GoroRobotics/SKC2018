@@ -4,7 +4,6 @@
 #define _MENU_h
 
 #include "MenuItem.h"
-#include <NewliquidCrystal\LiquidCrystal_I2C.h>
 
 #if defined(ARDUINO) && ARDUINO >= 100
 	#include "Arduino.h"
