@@ -37,6 +37,8 @@ protected:
 	KEY waitForNextKey(void);
 	void waitForAnyKeyPress();
 	void waitForAllKeysReleased();
+	static String KEY2String(KEY button);
+	static void diagnostics(void * _this);
 };
 
 #endif

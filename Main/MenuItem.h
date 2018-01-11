@@ -12,7 +12,8 @@
 class MenuItem{
 
 	private:
-		const char * _displayText;
+		/*Propeties*/
+		const char * _text;
 		MenuItem * _next;
 		MenuItem * _prev;
 
@@ -20,11 +21,16 @@ class MenuItem{
 
 
 	public:
-		MenuItem(const char * displayText);//constructor
+		/*Methods*/
+		MenuItem(const char * menuText, void(*command)(void *), void * context);//constructor
 		void insertAfter(MenuItem * insertAfter);
 		MenuItem * next();
 		MenuItem * prev();
-		const char * displayText();
+		const char * text();
+		
+		/*Properties*/
+		void * context;
+		void(*go) (void *);
 };
 
 #endif
