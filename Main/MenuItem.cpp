@@ -1,14 +1,17 @@
-// 
+// MenuItem.cpp
 // 
 // 
 
 #include "MenuItem.h"
 
-MenuItem::MenuItem(const char * displayText) //constructor
+//Create a menu item (Menu item text, command, context (object on which to execute the command))
+MenuItem::MenuItem(const char * menuText, void(*command) (void *), void * context) //constructor
 {
-	_displayText = displayText;
+	_text = menuText;
 	_next = this;
 	_prev = this;
+	go = command;
+	this->context = context;
 }
 
 void MenuItem::insertAfter(MenuItem * insertAfter){
@@ -26,6 +29,6 @@ MenuItem * MenuItem::prev(){
 	return _prev;
 }
 
-const char * MenuItem::displayText(){
-	return _displayText;
+const char * MenuItem::text(){
+	return _text;
 }

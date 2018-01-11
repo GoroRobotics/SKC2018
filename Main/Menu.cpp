@@ -50,7 +50,8 @@ void Menu::process()
 			break;
 		case RIGHT:
 		case ENTER:	
-			//right and enter: execute selected menu item. TODO!
+			//right and enter: execute selected menu item's command.
+			currentItem->go(currentItem->context);
 			break;
 		default:
 			//when all else fails
@@ -67,7 +68,7 @@ void Menu::process()
 void Menu::show()
 {
 	//Display the current menu items.
-	display.print(1,currentItem->displayText(), currentItem->next()->displayText());
+	display.print(1,currentItem->text(), currentItem->next()->text());
 	//overlay cursor
 	display.print(0, 0, String(">"));
 }

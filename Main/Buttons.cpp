@@ -98,30 +98,32 @@ void Buttons::waitForAllKeysReleased()
 
 //prints the key on LCD (Good for Debuging)
 void Buttons::print(KEY button) {
-	display.print("Button = ");
+	display.print("Button: " + KEY2String(button));
+}// end Buttons::print(KEY button)
+
+ //Converts key from enum to string
+String Buttons::KEY2String(KEY button) {
+	String retval = "UNKN " + String(button);
 
 	switch (button) {
-	case LEFT:
-		display.print(0, 8, "LEFT  ");
-		break;
-	case UP:
-		display.print(0, 8, "UP    ");
-		break;
-	case DOWN:
-		display.print(0, 8, "DOWN  ");
-		break;
-	case RIGHT:
-		display.print(0, 8, "RIGHT ");
-		break;
-	case ENTER:
-		display.print(0, 8, "ENTER ");
-		break;
-	case NONE:
-		display.print(0, 8, "NONE  ");
-		break;
-	default:
-		//when all else fails
-		display.print("UNKNOWN KEY" + String(button)); delay(1000);
-		break;
+	case LEFT:	retval = "LEFT";	break;
+	case UP:	retval = "UP";		break;
+	case DOWN:	retval = "DOWN";	break;
+	case RIGHT: retval = "RIGHT";	break;
+	case ENTER: retval = "ENTER";	break;
+	case NONE:	retval = "NONE";	break;
 	}//end switch
+
+	return retval;
+}// end Buttons::KEY2String(KEY button)
+
+void Buttons::diagnostics(void * _this) {
+	Buttons *  buttons = (Buttons *) (_this);
+
+	display.print("Press Button","");
+	buttons->waitForNextKey();
+
+	String displayStr = "Key: " + buttons->KEY2String(buttons->lastKeyPressed);
+	display.print(displayStr, "");
+	buttons->waitForNextKey();
 }
