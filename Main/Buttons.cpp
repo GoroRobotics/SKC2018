@@ -120,10 +120,10 @@ String Buttons::KEY2String(KEY button) {
 void Buttons::diagnostics(void * _this) {
 	Buttons *  buttons = (Buttons *) (_this);
 
-	buttons->waitForAllKeysReleased();
-	buttons->waitForAnyKeyPress();
+	display.print("Press Button","");
+	buttons->waitForNextKey();
 
 	String displayStr = "Key: " + buttons->KEY2String(buttons->lastKeyPressed);
-	display.print(displayStr, "some text");
+	display.print(displayStr, "");
 	buttons->waitForNextKey();
 }
