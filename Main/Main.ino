@@ -9,6 +9,7 @@
 
 
 /*-----( Import needed stuff )-----*/
+#include "Motor.h"
 #include "Display.h"
 #include "Buttons.h"
 #include "MenuItem.h"
@@ -21,6 +22,7 @@
 Display display;
 Menu rootMenu;
 Buttons buttons;
+Motor motorBack(MOTOR_BACK, 23, A1, 26, 24, 8);
 
 void testing(void * _this) { //TODO remove this code
 
@@ -44,16 +46,15 @@ void setup() {
 	//rootMenu.addOutput(serialPort)
 
 	//Create Menu Items and add to root menu
-	//                         0123456789012345
-	rootMenu.add(new MenuItem("   Goro 2018   ", testing, (void *) NULL));
-	rootMenu.add(new MenuItem("-Team Members- ", testing, (void *) NULL));
-	rootMenu.add(new MenuItem("Luka BorlandLye", testing, (void *) NULL));
-	rootMenu.add(new MenuItem("Chris Dirks    ", testing, (void *) NULL));
-	rootMenu.add(new MenuItem("Alex Facer     ", testing, (void *) NULL));
+	//rootMenu.add(new MenuItem("-Team Members- ", testing, (void *) NULL));
+	//rootMenu.add(new MenuItem("Luka BorlandLye", testing, (void *) NULL));
+	//rootMenu.add(new MenuItem("Chris Dirks    ", testing, (void *) NULL));
+	//rootMenu.add(new MenuItem("Alex Facer     ", testing, (void *) NULL));
+	//                         012345678901234
+	rootMenu.add(new MenuItem("   Goro 2018   ",	testing,				(void *) NULL			));
+	rootMenu.add(new MenuItem("Buttons diag   ",	Buttons::diagnostics,	(void *)(&buttons)		));
+	rootMenu.add(new MenuItem("MotorBack diag ",	Motor::diagnostics,		(void *)(&motorBack)	));
 
-	rootMenu.add(new MenuItem("btn diagnostics", Buttons::diagnostics, (void *) (&buttons)));
-
-	
 	/*-----( Other Initializatons [TODO: to be added to classes...])-----*/
 	Serial.begin(9600);			// initialize serial communication at 9600 bits per second:
 		
