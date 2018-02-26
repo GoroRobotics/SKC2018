@@ -20,6 +20,7 @@
 
 
 /*-----( Import needed stuff )-----*/
+#include "Motor.h"
 #include "Display.h"
 #include "Buttons.h"
 #include "MenuItem.h"
@@ -68,11 +69,13 @@ foobar = PINB
 Display display;
 Menu rootMenu;
 Buttons buttons;
+Motor motorBack(MOTOR_BACK, 23, A1, 26, 24, 8);
+Motor motorLeft(MOTOR_LEFT, 22, A3, 27, 25, 10);
+Motor motorRight(MOTOR_RIGHT, 29, A2, 30, 31, 9);
 
 void testing(void * _this) { //TODO remove this code
 
-	display.print("Robotics", "is awesome");
-	delay(1000);
+	display.print("Made by Alex,", "Luka and Chris");
 	buttonInteruptEvent = false;
 	do {
 		delay(1);
@@ -90,16 +93,19 @@ void setup() {
 	//rootMenu.addOutput(lcd)
 	//rootMenu.addOutput(serialPort)
 
+	//rootMenu.add(new MenuItem("-Team Members- ", testing, (void *) NULL));
+	//rootMenu.add(new MenuItem("Luka BorlandLye", testing, (void *) NULL));
+	//rootMenu.add(new MenuItem("Chris Dirks    ", testing, (void *) NULL));
+	//rootMenu.add(new MenuItem("Alex Facer     ", testing, (void *) NULL));
+	
 	//Create Menu Items and add to root menu
-	//                         0123456789012345
-	rootMenu.add(new MenuItem("   Goro 2018   ", testing, (void *) NULL));
-	rootMenu.add(new MenuItem("-Team Members- ", testing, (void *) NULL));
-	rootMenu.add(new MenuItem("Luka BorlandLye", testing, (void *) NULL));
-	rootMenu.add(new MenuItem("Chris Dirks    ", testing, (void *) NULL));
-	rootMenu.add(new MenuItem("Alex Facer     ", testing, (void *) NULL));
-
-	rootMenu.add(new MenuItem("btn diagnostics", Buttons::diagnostics, (void *) (&buttons)));
-
+	//                         012345678901234
+	rootMenu.add(new MenuItem(" Goro Robotics ",	testing,				(void *) NULL			));
+	rootMenu.add(new MenuItem("Buttons diag   ",	Buttons::diagnostics,	(void *)(&buttons)		));
+	rootMenu.add(new MenuItem("Motor Back diag",	Motor::diagnostics,		(void *)(&motorBack)	));
+	rootMenu.add(new MenuItem("Motor Left diag",	Motor::diagnostics,		(void *)(&motorLeft)	));
+	rootMenu.add(new MenuItem("MotorRight diag",	Motor::diagnostics,		(void *)(&motorRight)	));
+	
 	
 	/*-----( Other Initializatons [TODO: to be added to classes...])-----*/
 	Serial.begin(9600);			// initialize serial communication at 9600 bits per second:

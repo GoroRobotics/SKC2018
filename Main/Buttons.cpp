@@ -53,10 +53,15 @@ Buttons::Buttons()//constructor
 	attachInterrupt(digitalPinToInterrupt(BUTTON_INTERUPT_PIN), buttonInteruptServiceRoutine, FALLING);
 }
 
+KEY Buttons::lastKeyPressed(void)
+{
+	return _lastKeyPressed;
+}
+
 //Waits for next key to be pressed and released. Will not return KEY=NONE. Will initially wait for all keys to be released. 
 KEY Buttons::waitForNextKey()
 {
-	waitForAllKeysReleased();
+	//waitForAllKeysReleased(); //can this be deleted? TODO
 
 	waitForAnyKeyPress();
 	
@@ -70,9 +75,8 @@ KEY Buttons::waitForNextKey()
 	//wait for key to be released before continuing
 	waitForAllKeysReleased();
 
-	return lastKeyPressed;
+	return _lastKeyPressed;
 }
-
 
 //sets buttonValue to KEY value when done
 void Buttons::waitForAnyKeyPress()
@@ -85,6 +89,13 @@ void Buttons::waitForAnyKeyPress()
 	buttonAnalogValue = analogRead(BUTTON_ANALOG_PIN);
 }
 
+//Peforms analog read and tests if any keys are down
+boolean Buttons::allKeysReleased()
+{
+	buttonAnalogValue = analogRead(BUTTON_ANALOG_PIN);
+	return (buttonAnalogValue > BUTTON_NONE_GTBOUNDARY);
+}
+
 //sets buttonValue = NONE and updates lastKeyPressed when done
 void Buttons::waitForAllKeysReleased()
 {
@@ -92,8 +103,8 @@ void Buttons::waitForAllKeysReleased()
 		buttonAnalogValue = analogRead(BUTTON_ANALOG_PIN);
 	} while (!(buttonAnalogValue > BUTTON_NONE_GTBOUNDARY));
 
-	lastKeyPressed = buttonValue;
-	buttonValue = NONE;
+	_lastKeyPressed = buttonValue;
+	buttonValue = KEY_NONE;
 }
 
 //prints the key on LCD (Good for Debuging)
@@ -111,7 +122,7 @@ String Buttons::KEY2String(KEY button) {
 	case DOWN:	retval = "DOWN";	break;
 	case RIGHT: retval = "RIGHT";	break;
 	case ENTER: retval = "ENTER";	break;
-	case NONE:	retval = "NONE";	break;
+	case KEY_NONE:	retval = "NONE";	break;
 	}//end switch
 
 	return retval;
@@ -119,11 +130,10 @@ String Buttons::KEY2String(KEY button) {
 
 void Buttons::diagnostics(void * _this) {
 	Buttons *  buttons = (Buttons *) (_this);
-
-	display.print("Press Button","");
-	buttons->waitForNextKey();
-
-	String displayStr = "Key: " + buttons->KEY2String(buttons->lastKeyPressed);
-	display.print(displayStr, "");
-	buttons->waitForNextKey();
+	display.print("Press Button", "");
+	do {
+		buttons->waitForNextKey();
+		String displayStr = "Key: " + buttons->KEY2String(buttons->_lastKeyPressed);
+		display.print("Press Button", displayStr);
+	} while (buttons->_lastKeyPressed != LEFT);
 }

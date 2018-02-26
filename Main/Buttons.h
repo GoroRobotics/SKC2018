@@ -14,7 +14,7 @@ extern volatile byte buttonInteruptEvent;
 
 enum KEY
 {
-	NONE,	//no keys pressed
+	KEY_NONE,	//no keys pressed
 	LEFT,
 	RIGHT,
 	UP,
@@ -25,8 +25,8 @@ enum KEY
 class Buttons{
  
 private:
-	KEY buttonValue = NONE;
-	KEY lastKeyPressed = NONE;
+	KEY buttonValue = KEY_NONE;
+	KEY _lastKeyPressed = KEY_NONE;
 	int buttonAnalogValue = 0;
 	void print(KEY button);
 
@@ -34,6 +34,8 @@ protected:
 
  public:
 	Buttons(); //constructor
+	boolean allKeysReleased();
+	KEY lastKeyPressed(void);
 	KEY waitForNextKey(void);
 	void waitForAnyKeyPress();
 	void waitForAllKeysReleased();
