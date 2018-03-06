@@ -48,19 +48,22 @@ void Motor::diagnostics(void * _this) {
 	
 	motor->start();//enable motor
 
-	display.print("Current:0", "Pwr:0");
+	display.print("Current:000", "Pwr:0");
 
 	do {
 		do{ //update the current on the display whilst waiting for the key to be pressed
-			motor->_current = (motor->_current + analogRead(motor->_CS_PIN))/2; //alpha smoothed
+			motor->_current = 0;
+			for (int i = 0; i < 20; i++)
+			{
+				(motor->_current) += analogRead(motor->_CS_PIN);
+			}
 
 			//Update the display
 			char currentChr[4]; sprintf(currentChr, "%03d", motor->_current);
-			String topDisplayStr = "Current:" + String(currentChr);
-			String bottomDisplayStr = "Pwr:" + String(motor->_power);
-			display.print(topDisplayStr, bottomDisplayStr);
-			delay(100);
-
+			char powerChr[4]; sprintf(powerChr, "%04d", motor->_power);
+			display.print(8,0,String(currentChr)); 
+			display.print(4,1,String(powerChr));
+			delay(300);
 		} while (buttons.allKeysReleased());
 		
 		//process the key pressed
@@ -132,6 +135,10 @@ void Motor::setPower(int power) {//Sets the power and direction of the Motor, ra
 		case COUNTER_CLOCKWISE:
 			digitalWrite(_INA_PIN, LOW);
 			digitalWrite(_INB_PIN, HIGH);
+			break;
+
+		case DIRECTION_NOT_SET:
+			//ignore
 			break;
 		}
 	} //end if
