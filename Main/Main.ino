@@ -119,8 +119,10 @@ void loop() {
 	buttonInteruptEvent = false;
 	
 	/*do {
-		//playing game...
-		delay(100);
+		//Controller.aquire_ball();
+		//Controller.goto(center_pitch_right);
+		//Controller.goto(goal_box);
+		//Kicker.Kick():
 	} while (!buttonInteruptEvent); //wait for left key press to go to menu*/
 	
 	rootMenu.process();
