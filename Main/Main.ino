@@ -20,6 +20,7 @@
 
 
 /*-----( Import needed stuff )-----*/
+#include "Chassis.h"
 #include "Motor.h"
 #include "Display.h"
 #include "Buttons.h"
@@ -72,8 +73,9 @@ Buttons buttons;
 Motor motorBack(MOTOR_BACK, 23, A1, 26, 24, 8);
 Motor motorLeft(MOTOR_LEFT, 22, A3, 27, 25, 10);
 Motor motorRight(MOTOR_RIGHT, 29, A2, 30, 31, 9);
+Chassis chassis;
 
-void testing(void * _this) { //TODO remove this code
+void contributors(void * _this) { //TODO remove this code
 
 	display.print("Made by Alex,", "Luka and Chris");
 	buttonInteruptEvent = false;
@@ -100,7 +102,8 @@ void setup() {
 	
 	//Create Menu Items and add to root menu
 	//                         012345678901234
-	rootMenu.add(new MenuItem(" Goro Robotics ",	testing,				(void *) NULL			));
+	rootMenu.add(new MenuItem(" Goro Robotics ",	contributors,			(void *) NULL			));
+	rootMenu.add(new MenuItem("Chassis Drive  ",	Chassis::interactive,	(void *)(&chassis)		));
 	rootMenu.add(new MenuItem("Buttons diag   ",	Buttons::diagnostics,	(void *)(&buttons)		));
 	rootMenu.add(new MenuItem("Motor Back diag",	Motor::diagnostics,		(void *)(&motorBack)	));
 	rootMenu.add(new MenuItem("Motor Left diag",	Motor::diagnostics,		(void *)(&motorLeft)	));
@@ -116,15 +119,16 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
-	buttonInteruptEvent = false;
 	
+	buttonInteruptEvent = false;	//button event handler
+	
+	rootMenu.process();				//run the menu system
+
 	/*do {
 		//Controller.aquire_ball();
 		//Controller.goto(center_pitch_right);
 		//Controller.goto(goal_box);
 		//Kicker.Kick():
 	} while (!buttonInteruptEvent); //wait for left key press to go to menu*/
-	
-	rootMenu.process();
 
 }//end loop
