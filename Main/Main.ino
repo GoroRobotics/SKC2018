@@ -6,9 +6,19 @@
 //   Luka Borland Lye(lukabl@icloud.com)
 //   Christopher Dirks (Christopher@dirksonline.net)
 //   Alex Facer (alex.Facer@gmail.com)
+//	 Liam Twentyman (liam@aacl.co.nz)
+// Unnoticed, Previously Hidden, Behind The Scenes Genius
+// Supreme Overall Contributor, Major Design Advisor, Key Robot Component Sourcer, Significant Motivator,
+// Foremost Unbiased View Provider, Ultimate Design Critic, Supreme 3D Printer Builder,
+// Master 3D Printer Firmware Configurer, Outstanding 3D Printer Advisor, 
+// Chief 3D Printing Process Advisor, Vital CAD Design Advisor,
+// Excellent Alternative Solutions Provider, and a whole load more. Also, is starting to assist with the programming,
+// when the workload of Yr 12 Permits.
 
 
 /*-----( Import needed stuff )-----*/
+#include "Chassis.h"
+#include "Motor.h"
 #include "Display.h"
 #include "Buttons.h"
 #include "MenuItem.h"
@@ -21,11 +31,14 @@
 Display display;
 Menu rootMenu;
 Buttons buttons;
+Motor motorBack(MOTOR_BACK, 23, A1, 26, 24, 8);
+Motor motorLeft(MOTOR_LEFT, 22, A3, 27, 25, 10);
+Motor motorRight(MOTOR_RIGHT, 29, A2, 30, 31, 9);
+Chassis chassis;
 
-void testing(void * _this) { //TODO remove this code
+void contributors(void * _this) { //TODO remove this code
 
-	display.print("Robotics", "is awesome");
-	delay(1000);
+	display.print("Made by Alex,", "Luka and Chris");
 	buttonInteruptEvent = false;
 	do {
 		delay(1);
@@ -34,42 +47,37 @@ void testing(void * _this) { //TODO remove this code
 }
 
 void setup() {
+
 	display.begin();
 
-	/*-----( Menu Init [TODO])-----*/
-	//add inputs and outputs for menu system
-	//rootMenu.addInput(buttons)
-	//rootMenu.addInput(serialPort)
-	//rootMenu.addOutput(lcd)
-	//rootMenu.addOutput(serialPort)
-
 	//Create Menu Items and add to root menu
-	//                         0123456789012345
-	rootMenu.add(new MenuItem("   Goro 2018   ", testing, (void *) NULL));
-	rootMenu.add(new MenuItem("-Team Members- ", testing, (void *) NULL));
-	rootMenu.add(new MenuItem("Luka BorlandLye", testing, (void *) NULL));
-	rootMenu.add(new MenuItem("Chris Dirks    ", testing, (void *) NULL));
-	rootMenu.add(new MenuItem("Alex Facer     ", testing, (void *) NULL));
-
-	rootMenu.add(new MenuItem("btn diagnostics", Buttons::diagnostics, (void *) (&buttons)));
-
+	//                         012345678901234
+	rootMenu.add(new MenuItem(" Goro Robotics ",	contributors,			(void *) NULL			));
+	rootMenu.add(new MenuItem("Chassis Drive  ",	Chassis::interactive,	(void *)(&chassis)		));
+	rootMenu.add(new MenuItem("Buttons diag   ",	Buttons::diagnostics,	(void *)(&buttons)		));
+	rootMenu.add(new MenuItem("Motor Back diag",	Motor::diagnostics,		(void *)(&motorBack)	));
+	rootMenu.add(new MenuItem("Motor Left diag",	Motor::diagnostics,		(void *)(&motorLeft)	));
+	rootMenu.add(new MenuItem("MotorRight diag",	Motor::diagnostics,		(void *)(&motorRight)	));
+	
 	
 	/*-----( Other Initializatons [TODO: to be added to classes...])-----*/
-	Serial.begin(9600);			// initialize serial communication at 9600 bits per second:
-		
-	rootMenu.start();//start menu system
+	Serial.begin(9600);	// initialize serial communication at 9600 bits per second:
+	rootMenu.start();	//start menu system
+
 }//end setup
 
 
-// the loop routine runs over and over again forever:
-void loop() {
-	buttonInteruptEvent = false;
+void loop() {// the loop routine runs over and over again forever:
 	
+	buttonInteruptEvent = false;	//button event handler
+	
+	rootMenu.process();				//run the menu system
+
 	/*do {
-		//playing game...
-		delay(100);
+		//Controller.aquire_ball();
+		//Controller.goto(center_pitch_right);
+		//Controller.goto(goal_box);
+		//Kicker.Kick():
 	} while (!buttonInteruptEvent); //wait for left key press to go to menu*/
-	
-	rootMenu.process();
 
 }//end loop

@@ -286,3 +286,9 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# Visual Micro output files
+*.vmps.xml
+*.Debug.vmps.xml
+*.vsarduino.h
+*.vcxproj
