@@ -13,7 +13,8 @@ extern Buttons buttons;
 
 
 /*-----(       Settings         )-----*/
-#define DIAGNOSTICS_INCREMENT  15//the amount it increases by each time you press the button
+#define DIAGNOSTICS_INCREMENT  10//the amount it increases by each time you press the button
+
 /*-----(       Definitions      )-----*/
 
 /*-----(       Variables        )-----*/
@@ -71,6 +72,13 @@ void Motor::diagnostics(void * _this) {
 
 		switch (buttons.lastKeyPressed()) {
 		case RIGHT:
+			//Increase by 1
+			if (motor->_power<255)
+			{
+				motor->_power = motor->_power + 1;
+			}
+			break;
+
 		case LEFT:
 			//Exit current menuitem
 			break;

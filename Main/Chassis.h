@@ -13,12 +13,12 @@ class Chassis
 {
 private:
 	int _direction;		//current Chassis digital direction value, range(-180, +180)
-	int _power;			//cureent Chassis digital power value, range(0, +255)
+	int _power = 100;			//cureent Chassis digital power value, range(0, +255)
 
 protected:
 
 
- public:
+public:
 	 Chassis();
 	 static void interactive(void * _this);
 	 void setDirection(int direction);

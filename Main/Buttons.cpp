@@ -20,7 +20,7 @@ extern Display display;
 //Analog range of values   (min,max)
 #define BUTTON_LEFT		MID(0,0)
 #define BUTTON_UP		MID(138,150)
-#define BUTTON_DOWN		MID(325,335)
+#define BUTTON_DOWN		MID(320,336)
 #define BUTTON_RIGHT	MID(501,513)
 #define BUTTON_ENTER	MID(735,747)
 #define BUTTON_NONE 	MID(1020,1024)
