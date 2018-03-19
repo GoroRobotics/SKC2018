@@ -83,6 +83,7 @@
     <ClInclude Include="Buttons.h" />
     <ClInclude Include="Chassis.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Kicker.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="Motor.h" />
@@ -92,6 +93,7 @@
     <ClCompile Include="Buttons.cpp" />
     <ClCompile Include="Chassis.cpp" />
     <ClCompile Include="Display.cpp" />
+    <ClCompile Include="Kicker.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuItem.cpp" />
     <ClCompile Include="Motor.cpp" />

@@ -17,6 +17,7 @@
 
 
 /*-----( Import needed stuff )-----*/
+#include "Kicker.h"
 #include "Chassis.h"
 #include "Motor.h"
 #include "Display.h"
@@ -35,6 +36,7 @@ Motor motorBack(MOTOR_BACK, 23, A1, 26, 24, 8);
 Motor motorLeft(MOTOR_LEFT, 22, A3, 27, 25, 10);
 Motor motorRight(MOTOR_RIGHT, 29, A2, 30, 31, 9);
 Chassis chassis;
+Kicker kicker;
 
 void contributors(void * _this) { //TODO remove this code
 
@@ -54,6 +56,7 @@ void setup() {
 	//                         012345678901234
 	rootMenu.add(new MenuItem(" Goro Robotics ",	contributors,			(void *) NULL			));
 	rootMenu.add(new MenuItem("Chassis Drive  ",	Chassis::interactive,	(void *)(&chassis)		));
+	rootMenu.add(new MenuItem("Kicker diag    ",	Kicker::diagnostics,	(void *)(&kicker)		));
 	rootMenu.add(new MenuItem("Buttons diag   ",	Buttons::diagnostics,	(void *)(&buttons)		));
 	rootMenu.add(new MenuItem("Motor Back diag",	Motor::diagnostics,		(void *)(&motorBack)	));
 	rootMenu.add(new MenuItem("Motor Left diag",	Motor::diagnostics,		(void *)(&motorLeft)	));

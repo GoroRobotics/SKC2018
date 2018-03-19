@@ -17,7 +17,7 @@ extern Motor motorRight;
 
 
 /*-----(       Settings         )-----*/
-#define MIN_POWER 45 //the minimum power required to move the motor under the force of the robot
+#define MIN_POWER 65 //the minimum power required to move the motor under the force of the robot
 
 /*-----(       Definitions      )-----*/
 
@@ -109,9 +109,9 @@ void Chassis::setDirection(int direction) {//Sets the direction of the Chassis, 
 
 	switch (_direction) {
 		case 0	://Straight Forward
-			motorRight.setPower	(((_power - MIN_POWER)*0.87)  + MIN_POWER);	//Cos(270 - 0) = -87%
-			motorBack.setPower	(0);										//Cos(150 - 0) = 0%
-			motorLeft.setPower	(((_power - MIN_POWER)*-0.87) - MIN_POWER);	//Cos(30  - 0) = 87%
+			motorRight.setPower	(_power*-0.87 - MIN_POWER);	//Cos(270 - 0) = -87%
+			motorBack.setPower	(0						 );	//Cos(150 - 0) = 0%
+			motorLeft.setPower	(_power*+0.87 + MIN_POWER);	//Cos(30  - 0) = 87%
 			break;
 
 		case 30:
@@ -123,9 +123,9 @@ void Chassis::setDirection(int direction) {//Sets the direction of the Chassis, 
 			break;
 
 		case 90		://Right
-			motorRight.setPower	(((_power - MIN_POWER)*0.5) + MIN_POWER);	//Cos(270 - 0) = 50%
-			motorBack.setPower	(-_power);									//Cos(150 - 90)= -100%
-			motorLeft.setPower	(((_power - MIN_POWER)*0.5) + MIN_POWER);	//Cos(30  - 0) = 50%
+			motorRight.setPower	(_power*+0.5 + MIN_POWER);	//Cos(270 - 0) = 50%
+			motorBack.setPower	(-_power - MIN_POWER	);	//Cos(150 - 90)= -100%
+			motorLeft.setPower	(_power*+0.5 + MIN_POWER);	//Cos(30  - 0) = 50%
 			break;
 
 		case 120:
@@ -138,9 +138,9 @@ void Chassis::setDirection(int direction) {//Sets the direction of the Chassis, 
 
 		case 180	:
 		case -180	://Backwards
-			motorRight.setPower	(((_power - MIN_POWER)*-0.87) - MIN_POWER);	//Cos(30  - 0) = 87%
-			motorBack.setPower	(0);										//Cos(150 - 0) = 0%
-			motorLeft.setPower	(((_power - MIN_POWER)*0.87) + MIN_POWER);	//Cos(270 - 0) = -87%
+			motorRight.setPower	(_power*+0.87+ MIN_POWER);	//Cos(30  - 0) = 87%
+			motorBack.setPower	(0						);	//Cos(150 - 0) = 0%
+			motorLeft.setPower	(_power*-0.87- MIN_POWER);	//Cos(270 - 0) = -87%
 			break;
 
 		case -150:
@@ -152,9 +152,9 @@ void Chassis::setDirection(int direction) {//Sets the direction of the Chassis, 
 			break;
 
 		case -90://Left
-			motorRight.setPower	(((_power - MIN_POWER)*-0.5) + MIN_POWER);	//Cos(270 - 0) = -50%
-			motorBack.setPower	(_power);									//Cos(150 - 90)= 100%
-			motorLeft.setPower	(((_power - MIN_POWER)*-0.5) + MIN_POWER);	//Cos(30  - 0) = -50%
+			motorRight.setPower	(_power* -0.5 -MIN_POWER);	//Cos(270 + 90) = -50%
+			motorBack.setPower	(_power + MIN_POWER		);	//Cos(150 + 90) = 100%
+			motorLeft.setPower	(_power* -0.5 +MIN_POWER);	//Cos(30  + 90) = -50%
 			break;
 
 		case -60:
@@ -172,5 +172,5 @@ void Chassis::setDirection(int direction) {//Sets the direction of the Chassis, 
 
 void Chassis::setPower(int power) {//Sets the power of the Chassis, range(0, +255)
 
-	_power = power;
+	_power = power - MIN_POWER;
 }
