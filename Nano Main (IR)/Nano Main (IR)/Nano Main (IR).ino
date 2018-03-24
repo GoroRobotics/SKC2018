@@ -1,5 +1,10 @@
+/*
+ Name:		Nano_Main__IR_.ino
+ Created:	3/23/2018 9:19:52 PM
+ Author:	CD_FER
+*/
 
-//Port C
+//LEDs
 #define LED_1 A0
 #define LED_2 A1
 #define LED_3 A2
@@ -10,7 +15,7 @@
 #define LED_8 A7
 
 
-//Port D
+//IRs
 #define IR_1 2
 #define IR_2 3
 #define IR_3 4
@@ -20,20 +25,23 @@
 #define IR_7 8
 #define IR_8 9
 
-#define IR_MASK B00000111
 
-#define DELAY_MS 100
+int	ir1Counter = 0;
+boolean	ballDetected = false;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
-	
-	// initialize digital pin LED_BUILTIN as an output.
+
+	// initialize digital pins as an output/INPUTS.
 	pinMode(LED_1, OUTPUT);
 	pinMode(LED_2, OUTPUT);
 	pinMode(LED_3, OUTPUT);
 	pinMode(LED_4, OUTPUT);
 	pinMode(LED_5, OUTPUT);
 	pinMode(LED_6, OUTPUT);
+	pinMode(LED_7, OUTPUT);
+	pinMode(LED_8, OUTPUT);
+	
 	pinMode(IR_1, INPUT_PULLUP);
 	pinMode(IR_2, INPUT_PULLUP);
 	pinMode(IR_3, INPUT_PULLUP);
@@ -43,26 +51,30 @@ void setup() {
 	pinMode(IR_7, INPUT_PULLUP);
 	pinMode(IR_8, INPUT_PULLUP);
 
-	//Serial.begin(57600);
-	//Serial.println("*** Begin ***");
+	Serial.begin(57600);
+	Serial.println("*** Begin ***");
+
 }
 
-byte inputs_now = 0, inputs_prev = 0;
-
+// the loop function runs over and over again until power down or reset
 void loop() {
-	//Serial.println("---------");
+
+
+
+	if (digitalRead(IR_8) == LOW)
+	{
+		ir1Counter += (ir1Counter < 250 ? 2 : 0);
+	}
+	else
+	{
+		ir1Counter -= (ir1Counter > 0);
+	}
+
 	
-	do {
-		//read inputs on POPRTB
-		inputs_now = (~PINB & IR_MASK);
-	} while (inputs_now == inputs_prev); //loop untill input changes
-	inputs_prev = inputs_now;
-
-	//Serial.println(inputs_now);// | B00000000, BIN);
-
-	//set LEDs
-	PORTC = inputs_now;
-
-//	Serial.println("loop - End");
-//	delay(DELAY_MS);
+	if (ballDetected != (ir1Counter > 200))
+	{
+		ballDetected = (ir1Counter > 200);
+		digitalWrite(LED_1, ballDetected);
+	}
+	
 }
