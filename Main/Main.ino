@@ -38,13 +38,14 @@ Chassis chassis;
 
 void contributors(void * _this) { //TODO remove this code
 
-	display.print("Made by Alex,", "Luka and Chris");
+	display.print("Made by Chris,", "Alex and Luka");
 	buttonInteruptEvent = false;
 	do {
 		delay(1);
 	} while (!buttonInteruptEvent); //wait for left key press to go to menu*/
 
 }
+
 
 void setup() {
 

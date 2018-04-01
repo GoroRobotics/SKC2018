@@ -13,7 +13,7 @@
 #define LED_6 A5
 #define LED_7 A6
 #define LED_8 A7
-
+                                                                                                                                                                                                                   
 
 //IRs
 #define IR_1 2
@@ -63,18 +63,18 @@ void loop() {
 
 	if (digitalRead(IR_8) == LOW)
 	{
-		ir1Counter += (ir1Counter < 250 ? 2 : 0);
+		ir1Counter += (ir1Counter < 250 ? 2 : 0);//if IR is on & if counter>250 then +2 t counter else +0
 	}
 	else
 	{
-		ir1Counter -= (ir1Counter > 0);
+		ir1Counter -= (ir1Counter > 0);//If IR is off then -1 (if counter > than 0)
 	}
 
 	
-	if (ballDetected != (ir1Counter > 200))
+	if (ballDetected != (ir1Counter > 200))//if ir counter si inconsitant with ball detected
 	{
-		ballDetected = (ir1Counter > 200);
-		digitalWrite(LED_1, ballDetected);
+		ballDetected = (ir1Counter > 200);//Set ball detected
+		digitalWrite(LED_1, ballDetected);//turn LED on
 	}
 	
 }
