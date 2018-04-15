@@ -5,25 +5,25 @@
 */
 
 //LEDs
-#define LED_1 A0
-#define LED_2 A1
-#define LED_3 A2
-#define LED_4 A3
-#define LED_5 A4
-#define LED_6 A5
-#define LED_7 A6
-#define LED_8 A7
+#define LED_FRONT_RIGHT 13
+#define LED_FRONT_LEFT	A1
+#define LED_LEFT		A0
+#define LED_LEFT_BACK	9 
+#define LED_BACK		10
+#define LED_RIGHT_BACK	11
+#define LED_RIGHT		12
+
                                                                                                                                                                                                                    
 
-//IRs
-#define IR_1 2
-#define IR_2 3
-#define IR_3 4
-#define IR_4 5
-#define IR_5 6
-#define IR_6 7
-#define IR_7 8
-#define IR_8 9
+//IRs TODO to be confirmed
+#define IR_FRONT_RIGHT	2
+#define IR_FRONT_LEFT	3
+#define IR_LEFT			4
+#define IR_LEFT_BACK	5
+#define IR_BACK			6
+#define IR_RIGHT_BACK	7
+#define IR_RIGHT		8
+
 
 
 int	ir1Counter = 0;
@@ -33,34 +33,38 @@ boolean	ballDetected = false;
 void setup() {
 
 	// initialize digital pins as an output/INPUTS.
-	pinMode(LED_1, OUTPUT);
-	pinMode(LED_2, OUTPUT);
-	pinMode(LED_3, OUTPUT);
-	pinMode(LED_4, OUTPUT);
-	pinMode(LED_5, OUTPUT);
-	pinMode(LED_6, OUTPUT);
-	pinMode(LED_7, OUTPUT);
-	pinMode(LED_8, OUTPUT);
+	pinMode(LED_FRONT_RIGHT	, OUTPUT);
+	pinMode(LED_FRONT_LEFT	, OUTPUT);
+	pinMode(LED_LEFT		, OUTPUT);
+	pinMode(LED_LEFT_BACK	, OUTPUT);
+	pinMode(LED_BACK		, OUTPUT);
+	pinMode(LED_RIGHT_BACK	, OUTPUT);
+	pinMode(LED_RIGHT		, OUTPUT);
 	
-	pinMode(IR_1, INPUT_PULLUP);
-	pinMode(IR_2, INPUT_PULLUP);
-	pinMode(IR_3, INPUT_PULLUP);
-	pinMode(IR_4, INPUT_PULLUP);
-	pinMode(IR_5, INPUT_PULLUP);
-	pinMode(IR_6, INPUT_PULLUP);
-	pinMode(IR_7, INPUT_PULLUP);
-	pinMode(IR_8, INPUT_PULLUP);
+	pinMode(IR_FRONT_RIGHT	, INPUT_PULLUP);
+	pinMode(IR_FRONT_LEFT	, INPUT_PULLUP);
+	pinMode(IR_LEFT			, INPUT_PULLUP);
+	pinMode(IR_LEFT_BACK	, INPUT_PULLUP);
+	pinMode(IR_BACK			, INPUT_PULLUP);
+	pinMode(IR_RIGHT_BACK	, INPUT_PULLUP);
+	pinMode(IR_RIGHT		, INPUT_PULLUP);
+	
 
 	Serial.begin(57600);
 	Serial.println("*** Begin ***");
+
+	LEDCircleFlash();
+	LEDCircleFlash();
 
 }
 
 // the loop function runs over and over again until power down or reset
 void loop() {
-
-
-
+	
+	
+	LEDCircleFlash();
+	
+	/*
 	if (digitalRead(IR_8) == LOW)
 	{
 		ir1Counter += (ir1Counter < 250 ? 2 : 0);//if IR is on & if counter>250 then +2 t counter else +0
@@ -75,6 +79,37 @@ void loop() {
 	{
 		ballDetected = (ir1Counter > 200);//Set ball detected
 		digitalWrite(LED_1, ballDetected);//turn LED on
-	}
+	}*/
 	
+}
+
+void LEDCircleFlash(void) {
+	digitalWrite(LED_FRONT_RIGHT, HIGH);
+	delay(100);
+	digitalWrite(LED_FRONT_LEFT, HIGH);
+	delay(100);
+	digitalWrite(LED_LEFT, HIGH);
+	delay(100);
+	digitalWrite(LED_LEFT_BACK, HIGH);
+	delay(100);
+	digitalWrite(LED_BACK, HIGH);
+	delay(100);
+	digitalWrite(LED_RIGHT_BACK, HIGH);
+	delay(100);
+	digitalWrite(LED_RIGHT, HIGH);
+	delay(100);
+	digitalWrite(LED_FRONT_RIGHT, LOW);
+	delay(100);
+	digitalWrite(LED_FRONT_LEFT, LOW);
+	delay(100);
+	digitalWrite(LED_LEFT, LOW);
+	delay(100);
+	digitalWrite(LED_LEFT_BACK, LOW);
+	delay(100);
+	digitalWrite(LED_BACK, LOW);
+	delay(100);
+	digitalWrite(LED_RIGHT_BACK, LOW);
+	delay(100);
+	digitalWrite(LED_RIGHT, LOW);
+	delay(100);
 }
