@@ -77,6 +77,6 @@ typedef unsigned char uint8_t;
 #define pgm_read_float(address_short) float()
 #define pgm_read_ptr(address_short)   short()
 
-#include "Main.ino"
+#include "IR Test.ino"
 #endif
 #endif
