@@ -4,7 +4,9 @@
  Author:	Christopher Dirks
 */
 
-//Charchtirtics
+#include "IR.h"
+
+//Characteristics
 #define COUNTER_MAX			700
 #define COUNTER_ADDITION	6
 //#define COUNTER_THRESHOLD	200
