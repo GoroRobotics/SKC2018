@@ -7,39 +7,39 @@
 #include "IR.h"
 
 //Characteristics
-#define COUNTER_MAX						700
-#define COUNTER_ADDITION				6
-#define COUNTER_SEEING_THRESHOLD		600
-#define COUNTER_NOT_SEEING_THRESHOLD	100
+//#define COUNTER_MAX						700
+//#define COUNTER_ADDITION				6
+//#define COUNTER_SEEING_THRESHOLD		600
+//#define COUNTER_NOT_SEEING_THRESHOLD	100
 
 //#define LED				44	//testing
 //#define IR				A0	//testing
 //#define IR_SUPPLY		A1	//testing
 
 //LEDs
-#define LED_FRONT_RIGHT 13
-#define LED_FRONT_LEFT	A1
-#define LED_LEFT		A0
-#define LED_LEFT_BACK	9 
-#define LED_BACK		10
-#define LED_RIGHT_BACK	11
-#define LED_RIGHT		12
+//#define LED_FRONT_RIGHT 13
+//#define LED_FRONT_LEFT	A1
+//#define LED_LEFT		A0
+//#define LED_LEFT_BACK	9 
+//#define LED_BACK		10
+//#define LED_RIGHT_BACK	11
+//#define LED_RIGHT		12
 
 //IRs 
-#define IR_FRONT_RIGHT	A3	
-#define IR_FRONT_LEFT	A2	
-#define IR_LEFT			5	
-#define IR_LEFT_BACK	6	
-#define IR_BACK			7	//intermitant
-#define IR_RIGHT_BACK	8	//intermitant
-#define IR_RIGHT		A4	//intermitant
+//#define IR_FRONT_RIGHT	A3	
+//#define IR_FRONT_LEFT	A2	
+//#define IR_LEFT			5	
+//#define IR_LEFT_BACK	6	
+//#define IR_BACK			7	//intermitant
+//#define IR_RIGHT_BACK	8	//intermitant
+//#define IR_RIGHT		A4	//intermitant
 
 //IR Supply
 //#define IR_VCC_FRONT_RIGHT	2
 //#define IR_VCC_FRONT_LEFT	1
 //#define IR_VCC_LEFT			0
-#define IR_VCC_RIGHT		3
-#define IR_VCC_BACK			4
+//#define IR_VCC_RIGHT		3
+//#define IR_VCC_BACK			4
 
 /*
 //Counter		
@@ -56,13 +56,13 @@ bool FrontRightDetected	= false;	bool prevFrontRightDetected		= false;
 
 //create instaces of IR sensors
 // Name,	 sensorPin, supplyPin, LedOutputPin, autoRestart, counterLimit, counterIncrement, DetectThreshold, NotDetectThreshold
-IR rightBack(8,         4,         11,           true,        700,          6,                600,             100               );
-//IR rightBack1(8,        4,         11,           true,        700,          6,                600,             100               );
-//IR rightBack2(8,        4,         11,           true,        700,          6,                600,             100               );
-//IR rightBack3(8,        4,         11,           true,        700,          6,                600,             100               );
-//IR rightBack4(8,        4,         11,           true,        700,          6,                600,             100               );
-//IR rightBack5(8,        4,         11,           true,        700,          6,                600,             100               );
-//IR rightBack6(8,        4,         11,           true,        700,          6,                600,             100               );
+IR frontRight(A3,       2,         13,           false,       700,          6,                600,             100               );
+IR frontLeft (A2,       1,         A1,           false,       700,          6,                600,             100               );
+IR left      (5,        0,         A0,           false,       700,          6,                600,             100               );
+IR leftBack  (6,        4,         9 ,           false,       700,          6,                600,             100               );
+IR back      (7,        4,         10,           true,        700,          6,                600,             100               );
+IR rightBack (8,        4,         11,           true,        700,          6,                600,             100               );
+IR right     (A4,       3,         12,           true,        700,          6,                600,             100               );
 
 // the setup function runs once when you press reset or power the board
 void setup() {
@@ -88,6 +88,8 @@ void setup() {
 }
 
 void loop() {
+	back.tick();
+	right.tick();
 	rightBack.tick();
 }
 
@@ -141,5 +143,11 @@ void loop() {
 }*/
 
 void LEDCircleFlash() {
+	frontRight.flash();
+	frontLeft.flash();
+	left.flash();
+	leftBack.flash();
+	back.flash();
 	rightBack.flash();
+	right.flash();
 }

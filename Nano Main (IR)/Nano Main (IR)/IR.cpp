@@ -8,7 +8,7 @@
 
 /*-----(       Settings         )-----*/
 #define	RESET_TICKS	40	//<-Confirm TODO
-#define FLASH_MS 50
+#define FLASH_MS 150
 
 /*-----(     Class Methods      )-----*/
 IR::IR(
