@@ -7,10 +7,9 @@
 #include "IR.h"
 
 //Characteristics
-#define COUNTER_MAX			700
-#define COUNTER_ADDITION	6
-//#define COUNTER_THRESHOLD	200
-#define COUNTER_SEEING_THRESHOLD	600
+#define COUNTER_MAX						700
+#define COUNTER_ADDITION				6
+#define COUNTER_SEEING_THRESHOLD		600
 #define COUNTER_NOT_SEEING_THRESHOLD	100
 
 //#define LED				44	//testing
@@ -42,72 +41,39 @@
 #define IR_VCC_RIGHT		3
 #define IR_VCC_BACK			4
 
+/*
 //Counter		
 unsigned int FrontRightCounter	= 0;
-unsigned int FrontLeftCounter	= 0;
-unsigned int LeftCounter		= 0;
-unsigned int LeftBackCounter	= 0;
-unsigned int BackCounter		= 0;
-unsigned int RightBackCounter	= 0;
-unsigned int RightCounter		= 0;
 
 //not seen counter
 long notSeenFrontRightCounter	= 0;
-long notSeenFrontLeftCounter	= 0;
-long notSeenLeftCounter			= 0;
-long notSeenLeftBackCounter		= 0;
-long notSeenBackCounter			= 0;
-long notSeenRightBackCounter	= 0;
-long notSeenRightCounter		= 0;
 
 long notSeenCounter = 0;
 
 //Booleans
 bool FrontRightDetected	= false;	bool prevFrontRightDetected		= false;
-bool FrontLeftDetected	= false;	bool prevFrontLeftDetected		= false;
-bool LeftDetected		= false;	bool prevLeftDetected			= false;
-bool LeftBackDetected	= false;	bool prevLeftBackDetected		= false;
-bool BackDetected		= false;	bool prevBackDetected			= false;
-bool RightBacKDetected	= false;	bool prevRightBacKDetected		= false;
-bool RightDetected		= false;	bool prevRightDetected			= false;
+*/
+
+//create instaces of IR sensors
+// Name,	 sensorPin, supplyPin, LedOutputPin, autoRestart, counterLimit, counterIncrement, DetectThreshold, NotDetectThreshold
+IR rightBack(8,         4,         11,           true,        700,          6,                600,             100               );
+//IR rightBack1(8,        4,         11,           true,        700,          6,                600,             100               );
+//IR rightBack2(8,        4,         11,           true,        700,          6,                600,             100               );
+//IR rightBack3(8,        4,         11,           true,        700,          6,                600,             100               );
+//IR rightBack4(8,        4,         11,           true,        700,          6,                600,             100               );
+//IR rightBack5(8,        4,         11,           true,        700,          6,                600,             100               );
+//IR rightBack6(8,        4,         11,           true,        700,          6,                600,             100               );
 
 // the setup function runs once when you press reset or power the board
 void setup() {
-
-	// initialize digital pins as an output/INPUTS.
-	pinMode(LED_FRONT_RIGHT	, OUTPUT);
-	pinMode(LED_FRONT_LEFT	, OUTPUT);
-	pinMode(LED_LEFT		, OUTPUT);
-	pinMode(LED_LEFT_BACK	, OUTPUT);
-	pinMode(LED_BACK		, OUTPUT);
-	pinMode(LED_RIGHT_BACK	, OUTPUT);
-	pinMode(LED_RIGHT		, OUTPUT);
-	
-	pinMode(IR_FRONT_RIGHT	, INPUT);
-	pinMode(IR_FRONT_LEFT	, INPUT);
-	pinMode(IR_LEFT			, INPUT);
-	pinMode(IR_LEFT_BACK	, INPUT);
-	pinMode(IR_BACK			, INPUT);
-	pinMode(IR_RIGHT_BACK	, INPUT);
-	pinMode(IR_RIGHT		, INPUT);
-
-//	pinMode(IR_VCC_FRONT_RIGHT		,OUTPUT);
-//	pinMode(IR_VCC_LEFT				,OUTPUT);
-//	pinMode(IR_VCC_FRONT_LEFT		,OUTPUT);
-	pinMode(IR_VCC_RIGHT			,OUTPUT);
-	pinMode(IR_VCC_BACK				,OUTPUT);
-
-//	digitalWrite(IR_VCC_FRONT_RIGHT	, HIGH);
-//	digitalWrite(IR_VCC_LEFT		, HIGH);
-//	digitalWrite(IR_VCC_FRONT_LEFT	, HIGH);
-	digitalWrite(IR_VCC_RIGHT		, HIGH);
-	digitalWrite(IR_VCC_BACK		, HIGH);
-						
+					
 	//start Serial
 	Serial.begin(57600);
 	Serial.println("*** Begin ***");
 
 	//startup cool thingy
+	LEDCircleFlash();
+	LEDCircleFlash();
 	LEDCircleFlash();
 	
 	//Mega test
@@ -121,9 +87,13 @@ void setup() {
 	pinMode(A0, INPUT);*/
 }
 
-//int loopcounter = 0;
-// the loop function runs over and over again until power down or reset
 void loop() {
+	rightBack.tick();
+}
+
+
+/*void loop2() {// the loop function runs over and over again until power down or reset
+
 	prevFrontRightDetected = FrontRightDetected;
 //	if (++loopcounter == 5) {
 //		Serial.print(FrontRightCounter);
@@ -168,35 +138,8 @@ void loop() {
 		delayMicroseconds(400);
 		//Serial.println("Reset");
 	}
-}
+}*/
 
-void LEDCircleFlash(void) {
-	digitalWrite(LED_FRONT_RIGHT, HIGH);
-	delay(100);
-	digitalWrite(LED_FRONT_LEFT, HIGH);
-	delay(100);
-	digitalWrite(LED_LEFT, HIGH);
-	delay(100);
-	digitalWrite(LED_LEFT_BACK, HIGH);
-	delay(100);
-	digitalWrite(LED_BACK, HIGH);
-	delay(100);
-	digitalWrite(LED_RIGHT_BACK, HIGH);
-	delay(100);
-	digitalWrite(LED_RIGHT, HIGH);
-	delay(100);
-	digitalWrite(LED_FRONT_RIGHT, LOW);
-	delay(100);
-	digitalWrite(LED_FRONT_LEFT, LOW);
-	delay(100);
-	digitalWrite(LED_LEFT, LOW);
-	delay(100);
-	digitalWrite(LED_LEFT_BACK, LOW);
-	delay(100);
-	digitalWrite(LED_BACK, LOW);
-	delay(100);
-	digitalWrite(LED_RIGHT_BACK, LOW);
-	delay(100);
-	digitalWrite(LED_RIGHT, LOW);
-	delay(100);
+void LEDCircleFlash() {
+	rightBack.flash();
 }
