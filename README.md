@@ -1,37 +1,37 @@
-## Welcome to GitHub Pages
+# SKC ROBOTICS 2018
 
-You can use the [editor on GitHub](https://github.com/GoroRobotics/GoroRobotics/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Buid and program a soccer robot to compete at robocup 2018
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Getting Started
 
-### Markdown
+this code is writen in c++ for arduino on a mega 2560 and nano
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Prerequisites
 
-```markdown
-Syntax highlighted code block
+What things you need to install the software and how to install them
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```
+Visual studio with the Visual micro and github plugins.
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Built With
 
-### Jekyll Themes
+* [Visual Studio Community 2017](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15) - The IDE used
+* [Visula Micor (arduino for visual studio)](hhttp://www.visualmicro.com/page/Arduino-Visual-Studio-Downloads.aspx) - Arduino plugin
+* Github
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/GoroRobotics/GoroRobotics/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
+## Authors
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+* **Christopher Dirks** - *Initial work* - [CD_FER](https://github.com/CDFER)
+* **Liam** - [LRTNZ](https://github.com/LRTNZ)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Hat tip to anyone who's code was used
+* Whoever made the NewliquidCrystal library
+* [Great Scott!](https://www.youtube.com/channel/UC6mIxFTvXkWQVEHPsEdflzQ) - great arduino tutorials
