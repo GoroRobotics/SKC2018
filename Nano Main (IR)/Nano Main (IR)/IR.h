@@ -46,7 +46,7 @@ private:
 	long resetCounter = 0;		
 	bool prevBallDetected = false;
 	
-	IR_STATUS status = NOT_SET;
+	IR_STATUS status;
 
 protected:
 
@@ -65,6 +65,7 @@ public:
 		);
 
 	void tick();
+	IR_STATUS tick(IR_STATUS sharedStatus);
 	void flash();
 
 };

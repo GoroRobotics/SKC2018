@@ -58,7 +58,7 @@ bool FrontRightDetected	= false;	bool prevFrontRightDetected		= false;
 // Name,	 sensorPin, supplyPin, LedOutputPin, autoRestart, counterLimit, counterIncrement, DetectThreshold, NotDetectThreshold
 IR frontRight(A3,       2,         13,           false,       700,          6,                600,             100               );
 IR frontLeft (A2,       1,         A1,           false,       700,          6,                600,             100               );
-IR left      (5,        0,         A0,           false,       700,          6,                600,             100               );
+IR left      (5,        0,         A0,           true,        700,          6,                600,             100               );
 IR leftBack  (6,        4,         9 ,           false,       700,          6,                600,             100               );
 IR back      (7,        4,         10,           true,        700,          6,                600,             100               );
 IR rightBack (8,        4,         11,           true,        700,          6,                600,             100               );
@@ -87,10 +87,19 @@ void setup() {
 	pinMode(A0, INPUT);*/
 }
 
+IR_STATUS backSensorsSharedStatus = RESET_ON;
 void loop() {
-	back.tick();
+
+	frontRight.tick();
+	frontLeft.tick();
+	left.tick();
 	right.tick();
-	rightBack.tick();
+
+	//Due to limited output pins on the nano, the back three sensors share a common power supply pin and need to share a common status. 
+	//If we did not do this we would end up trying to read data from sensors that are powered down unexpectedly.
+	backSensorsSharedStatus = back.tick(backSensorsSharedStatus);
+	backSensorsSharedStatus = leftBack.tick(backSensorsSharedStatus);
+	backSensorsSharedStatus = rightBack.tick(backSensorsSharedStatus);
 }
 
 

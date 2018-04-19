@@ -45,6 +45,11 @@ IR::IR(
 	}
 	
 }
+IR_STATUS IR::tick(IR_STATUS sharedStatus) {
+	status = sharedStatus; 
+	tick();
+	return status;
+}
 
 void IR::tick()
 {
@@ -80,12 +85,14 @@ void IR::tick()
 			digitalWrite(LED_OUTPUT_PIN, ballDetected);//turn LED on/off
 		}
 
-		// Reset the IR Sensor periodicly
-		if (resetCounter > (COUNTER_LIMIT + 100)) {
-			resetCounter = 0;
-			status = RESET_OFF;
-		}break;
-
+		// If required, reset the IR Sensor periodicaly
+		if (AUTO_RESTART) {
+			if (resetCounter > (COUNTER_LIMIT + 100)) {
+				resetCounter = 0;
+				status = RESET_OFF;
+			}
+		}
+		break;
 
 	case RESET_OFF:
 		// Reset the IR Sensor by turning it off
