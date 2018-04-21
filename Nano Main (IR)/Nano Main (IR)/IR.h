@@ -42,8 +42,9 @@ private:
 	const uint8_t DETECT_THRESHOLD;		//
 	const uint8_t NOT_DETECT_THRESHOLD;	//
 	
-	unsigned int Counter = 0;	
-	long resetCounter = 0;		
+	unsigned int resetTickCounter = 0;
+	unsigned int Counter = 0;
+	long resetCounter = 0;
 	bool prevBallDetected = false;
 	
 	IR_STATUS status;
