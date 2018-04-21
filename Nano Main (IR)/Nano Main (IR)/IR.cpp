@@ -89,6 +89,8 @@ void IR::tick()
 		if (AUTO_RESTART) {
 			if (resetCounter > (COUNTER_LIMIT + 100)) {
 				resetCounter = 0;
+				resetTickCounter = 0;
+
 				status = RESET_OFF;
 			}
 		}
@@ -97,16 +99,31 @@ void IR::tick()
 	case RESET_OFF:
 		// Reset the IR Sensor by turning it off
 		digitalWrite(SUPPLY_PIN, LOW);
-		delayMicroseconds(1000);//TODO replace with tick counter
-		status = RESET_ON;
+		if (resetTickCounter<RESET_TICKS)
+		{
+			resetTickCounter++;
+		}
+		else {
+			status = RESET_ON;
+			resetTickCounter==0;
+		}
+
 		break;
 
 
 	case RESET_ON:
 		// Restart the IR Sensor by turning it on
 		digitalWrite(SUPPLY_PIN, HIGH);
-		delayMicroseconds(1000);//TODO replace with tick counter
-		status = OK;
+
+		if (resetTickCounter<RESET_TICKS)
+		{
+			resetTickCounter++;
+		}
+		else {
+			status = OK;
+			resetTickCounter = 0;
+		}
+
 		break;
 	
 	
