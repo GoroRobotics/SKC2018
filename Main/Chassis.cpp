@@ -11,7 +11,6 @@
 
 extern Display display;
 extern Buttons buttons;
-extern Motor motorBack;
 extern Motor motorLeft;
 extern Motor motorRight;
 
@@ -27,14 +26,13 @@ extern Motor motorRight;
 
 //constructor
 Chassis::Chassis(){
-
+	display.print("Chassis()","Constructor");
 }
 
 
 void Chassis::interactive(void * _this) {
 	Chassis *  chassis = (Chassis *)(_this);
 
-	motorBack.start();	//enable motorBack
 	motorLeft.start();	//enable motorLeft
 	motorRight.start();	//enable motorRight
 
@@ -84,7 +82,6 @@ void Chassis::interactive(void * _this) {
 
 	} while (buttons.lastKeyPressed() != ENTER);
 	
-	motorBack.stop();
 	motorLeft.stop();
 	motorRight.stop();
 
@@ -110,7 +107,6 @@ void Chassis::setDirection(int direction) {//Sets the direction of the Chassis, 
 	switch (_direction) {
 		case 0	://Straight Forward
 			motorRight.setPower	(_power*-0.87 - MIN_POWER);	//Cos(270 - 0) = -87%
-			motorBack.setPower	(0						 );	//Cos(150 - 0) = 0%
 			motorLeft.setPower	(_power*+0.87 + MIN_POWER);	//Cos(30  - 0) = 87%
 			break;
 
@@ -124,7 +120,6 @@ void Chassis::setDirection(int direction) {//Sets the direction of the Chassis, 
 
 		case 90		://Right
 			motorRight.setPower	(_power*+0.5 + MIN_POWER);	//Cos(270 - 0) = 50%
-			motorBack.setPower	(-_power - MIN_POWER	);	//Cos(150 - 90)= -100%
 			motorLeft.setPower	(_power*+0.5 + MIN_POWER);	//Cos(30  - 0) = 50%
 			break;
 
@@ -139,7 +134,6 @@ void Chassis::setDirection(int direction) {//Sets the direction of the Chassis, 
 		case 180	:
 		case -180	://Backwards
 			motorRight.setPower	(_power*+0.87+ MIN_POWER);	//Cos(30  - 0) = 87%
-			motorBack.setPower	(0						);	//Cos(150 - 0) = 0%
 			motorLeft.setPower	(_power*-0.87- MIN_POWER);	//Cos(270 - 0) = -87%
 			break;
 
@@ -153,7 +147,6 @@ void Chassis::setDirection(int direction) {//Sets the direction of the Chassis, 
 
 		case -90://Left
 			motorRight.setPower	(_power* -0.5 -MIN_POWER);	//Cos(270 + 90) = -50%
-			motorBack.setPower	(_power + MIN_POWER		);	//Cos(150 + 90) = 100%
 			motorLeft.setPower	(_power* -0.5 +MIN_POWER);	//Cos(30  + 90) = -50%
 			break;
 

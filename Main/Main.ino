@@ -1,19 +1,16 @@
 
-/*-----( Soccer 2018 )-----*/
-//This is the Goro Robotics 2018 Main Code
+/*-----( Soccer 2019 )-----*/
+//This is the Goro Robotics 2019 Main Code
 
-//---Team Members---
-//   Luka Borland Lye(lukabl@icloud.com)
-//   Christopher Dirks (Christopher@dirksonline.net)
-//   Alex Facer (alex.Facer@gmail.com)
-//	 Liam Twentyman (liam@aacl.co.nz)
+//Christopher Dirks (Christopher@dirksonline.net)
+
 // Unnoticed, Previously Hidden, Behind The Scenes Genius
 // Supreme Overall Contributor, Major Design Advisor, Key Robot Component Sourcer, Significant Motivator,
 // Foremost Unbiased View Provider, Ultimate Design Critic, Supreme 3D Printer Builder,
 // Master 3D Printer Firmware Configurer, Outstanding 3D Printer Advisor, 
 // Chief 3D Printing Process Advisor, Vital CAD Design Advisor,
 // Excellent Alternative Solutions Provider, and a whole load more. Also, is starting to assist with the programming,
-// when the workload of Yr 12 Permits.
+// when the workload of Yr 12 Permits. Liam Twentyman (liam@aacl.co.nz)
 
 
 /*-----( Import needed stuff )-----*/
@@ -32,7 +29,6 @@
 Display display;
 Menu rootMenu;
 Buttons buttons;
-Motor motorBack(MOTOR_BACK, 23, A1, 26, 24, 8);
 Motor motorLeft(MOTOR_LEFT, 22, A3, 27, 25, 10);
 Motor motorRight(MOTOR_RIGHT, 29, A2, 30, 31, 9);
 Chassis chassis;
@@ -40,7 +36,7 @@ Kicker kicker;
 
 void contributors(void * _this) { //TODO remove this code
 
-	display.print("Made by Chris,", "Alex and Luka");
+	display.print("Made by,", "Christopher D.");
 	buttonInteruptEvent = false;
 	do {
 		delay(1);
@@ -59,7 +55,6 @@ void setup() {
 	rootMenu.add(new MenuItem("Chassis Drive  ",	Chassis::interactive,	(void *)(&chassis)		));
 	rootMenu.add(new MenuItem("Kicker diag    ",	Kicker::diagnostics,	(void *)(&kicker)		));
 	rootMenu.add(new MenuItem("Buttons diag   ",	Buttons::diagnostics,	(void *)(&buttons)		));
-	rootMenu.add(new MenuItem("Motor Back diag",	Motor::diagnostics,		(void *)(&motorBack)	));
 	rootMenu.add(new MenuItem("Motor Left diag",	Motor::diagnostics,		(void *)(&motorLeft)	));
 	rootMenu.add(new MenuItem("MotorRight diag",	Motor::diagnostics,		(void *)(&motorRight)	));
 	

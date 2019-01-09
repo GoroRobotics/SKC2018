@@ -17,13 +17,30 @@ extern Display display;
 #define BUTTON_ANALOG_PIN A0	// The analog pin the button board is connected to. (Each button generates a different analog voltage when pressed)
 #define DEBOUNCE_DELAY 5		//milliseconds delay for analog value to settle
 
+
+/*
+Sw5 (Enter) 5.2K
+Sw4 (Right) 1.9K
+SW3 (Down)  0.9K
+SW2 (UP)    330
+SW1 (Left)  1
+*/
 //Analog range of values   (min,max)
-#define BUTTON_LEFT		MID(0,0)
-#define BUTTON_UP		MID(138,150)
-#define BUTTON_DOWN		MID(320,336)
-#define BUTTON_RIGHT	MID(501,513)
-#define BUTTON_ENTER	MID(735,747)
-#define BUTTON_NONE 	MID(1020,1024)
+//	Button #1
+	#define BUTTON_LEFT		MID(0,0)
+	#define BUTTON_UP		MID(138,150)
+	#define BUTTON_DOWN		MID(320,336)
+	#define BUTTON_RIGHT	MID(501,513)
+	#define BUTTON_ENTER	MID(735,747)
+	#define BUTTON_NONE 	MID(1020,1024) //*/
+/*//	Button
+	#define BUTTON_LEFT		MID(60,72)
+	#define BUTTON_UP		MID(33,45)
+	#define BUTTON_DOWN		MID(15,27)
+	#define BUTTON_RIGHT	MID(6,15)
+	#define BUTTON_ENTER	MID(135,147)
+	#define BUTTON_NONE 	MID(1014,1024) //*/
+
 
 /*-----(       Definitions       )-----*/
 //Midway boundaries between key press analaog values to use with less than evaluations.
@@ -49,6 +66,7 @@ void buttonInteruptServiceRoutine(void)
 /*-----( Class Methods  )-----*/
 Buttons::Buttons()//constructor
 {
+	pinMode(BUTTON_ANALOG_PIN, INPUT_PULLUP);
 	pinMode(BUTTON_INTERUPT_PIN, INPUT_PULLUP);
 	attachInterrupt(digitalPinToInterrupt(BUTTON_INTERUPT_PIN), buttonInteruptServiceRoutine, FALLING);
 }

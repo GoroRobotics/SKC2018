@@ -26,7 +26,7 @@ void setup() {
 void loop() {
 	// read the state of the pushbutton value:
 	ir1Value = analogRead(IRPin1);
-	//ir2Value = analogRead(IRPin2);
+	ir2Value = analogRead(IRPin2);
 
 	// check if the pushbutton is pressed.
 	// if it is, the buttonState is HIGH:
