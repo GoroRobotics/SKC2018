@@ -1,19 +1,25 @@
-/*
-Name:		Side_Panel_Speed_Test.ino
-Created:	12/21/2018 7:36:31 PM
-Author:	CD_FER
-*/
+//#define NANO_PINS
+#define ATTINY_PINS
 
-// constants won't change. They're used here to
+#ifdef ATTINY_PINS
+#define IRPin1 3		// the number of the IR1 pin
+#define IRPin2 4		// the number of the IR2 pin
+#define OutputPin 1     // the number of the LED pin
+#endif
+
+#ifdef NANO_PINS
+#define IRPin1 1		// the number of the IR1 pin
+#define IRPin2 2		// the number of the IR2 pin
+#define OutputPin 13    // the number of the LED pin
+#endif
+
+// constants won't change.
 #define IR2OFFSET 100
-// set pin numbers:
-#define IRPin1 0     // the number of the IR1 pin
-#define IRPin2 0     // the number of the IR1 pin
-#define OutputPin 1      // the number of the LED pin
 
 // variables will change:
 int ir1Value = 0;
 int ir2Value = 0;
+int x = 0;
 
 void setup() {
 	// initialize the LED pin as an output:
@@ -28,6 +34,11 @@ void loop() {
 	ir1Value = analogRead(IRPin1);
 	ir2Value = analogRead(IRPin2);
 
+	for (size_t i = 0; i < 10; i++)
+	{
+		x = i*10;
+	}
+
 	// check if the pushbutton is pressed.
 	// if it is, the buttonState is HIGH:
 	if (ir1Value >= ir2Value + IR2OFFSET) {
@@ -36,6 +47,7 @@ void loop() {
 	else {
 		dip();
 	}
+
 }
 
 void dip() {

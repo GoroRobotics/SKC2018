@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ATtiny Speed Test.ino" />
+    <None Include="Side_Panel_Speed_Test.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.ATtiny Speed Test.vsarduino.h">
+    <ClInclude Include="__vm\.Side_Panel_Speed_Test.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
