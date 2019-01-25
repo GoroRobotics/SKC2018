@@ -5,26 +5,18 @@
 			all non-arduino files created by visual micro and all visual studio project or solution files can be freely deleted and are not required to compile a sketch (do not delete your own code!).
 			note: debugger breakpoints are stored in '.sln' or '.asln' files, knowledge of last uploaded breakpoints is stored in the upload.vmps.xml file. Both files are required to continue a previous debug session without needing to compile and upload again
 	
-	Hardware: ATtiny13, Platform=avr, Package=diy_attiny
+	Hardware: Arduino Nano w/ ATmega168, Platform=avr, Package=arduino
 */
 
 #if defined(_VMICRO_INTELLISENSE)
 
 #ifndef _VSARDUINO_H_
 #define _VSARDUINO_H_
-#define __AVR_ATtiny13__
-#define __AVR_ATTINY13__
-#define LTO_ENABLED
-#define F_CPU 9600000L
+#define __AVR_ATmega168__
+#define F_CPU 16000000L
 #define ARDUINO 10802
-#define ARDUINO_ATTINY13_DIY
+#define ARDUINO_AVR_NANO
 #define ARDUINO_ARCH_AVR
-#define NO_TONE
-#define USE_SERIAL_TYPE SERIAL_TYPE_HALF_DUPLEX
-#define PRINT_USE_BASE_BIN
-#define PRINT_USE_BASE_DEC
-#define PRINT_USE_BASE_HEX
-#define ACCEPTABLE_MILLIS_ERROR_PPM 16666UL
 #define __cplusplus 201103L
 #define __AVR__
 #define __inline__
@@ -71,8 +63,6 @@ typedef void *__builtin_va_list;
 
 #include <arduino.h>
 #include <pins_arduino.h> 
-#include <Tone.h> 
-#include <Tone.cpp> 
 //#undef F
 //#define F(string_literal) ((const PROGMEM char *)(string_literal))
 #undef PSTR
