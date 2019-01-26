@@ -13,7 +13,7 @@ extern Buttons buttons;
 
 
 /*-----(       Settings         )-----*/
-#define DIAGNOSTICS_INCREMENT  10//the amount it increases by each time you press the button
+#define DIAGNOSTICS_INCREMENT  50//the amount it increases by each time you press the button
 
 /*-----(       Definitions      )-----*/
 
@@ -85,7 +85,7 @@ void Motor::diagnostics(void * _this) {
 
 		case UP:
 			//Increase power
-			if (motor->_power<255)
+			if (motor->_power<250)
 			{
 				motor->_power = motor->_power + DIAGNOSTICS_INCREMENT;
 			}
@@ -93,7 +93,7 @@ void Motor::diagnostics(void * _this) {
 
 		case DOWN:
 			//Decrease power {TODO}	
-			if (motor->_power>-255)
+			if (motor->_power>-250)
 			{
 				motor->_power = motor->_power - DIAGNOSTICS_INCREMENT;
 			}
@@ -115,6 +115,7 @@ void Motor::diagnostics(void * _this) {
 
 	} while (buttons.lastKeyPressed() != LEFT);
 	motor->stop();
+	motor->disableMotor();
 }
 
 void Motor::start() {//Enables the Motor Pin, and sets power to 0 CLOCKWISE
@@ -122,8 +123,15 @@ void Motor::start() {//Enables the Motor Pin, and sets power to 0 CLOCKWISE
 	setPower(0);
 }
 
-void Motor::stop() {//Disables the Motor Pin
+void Motor::stop() {//Sets power to zero
+	setPower(0);
+
+}
+
+void Motor::disableMotor() {//Disables the Motor Pin
+	setPower(0);
 	digitalWrite(_EN_PIN, LOW);
+	
 }
 
 void Motor::setPower(int power) {//Sets the power and direction of the Motor, range(-255, +255)

@@ -29,8 +29,8 @@
 Display display;
 Menu rootMenu;
 Buttons buttons;
-Motor motorLeft(MOTOR_LEFT, 22, A3, 27, 25, 10);
-Motor motorRight(MOTOR_RIGHT, 29, A2, 30, 31, 9);
+Motor motorLeft(MOTOR_LEFT, 48, A3, 50, 52, 10);
+Motor motorRight(MOTOR_RIGHT, 42, A2, 44, 46, 9);
 Chassis chassis;
 Kicker kicker;
 
@@ -55,8 +55,8 @@ void setup() {
 	rootMenu.add(new MenuItem("Chassis Drive  ",	Chassis::interactive,	(void *)(&chassis)		));
 	rootMenu.add(new MenuItem("Kicker diag    ",	Kicker::diagnostics,	(void *)(&kicker)		));
 	rootMenu.add(new MenuItem("Buttons diag   ",	Buttons::diagnostics,	(void *)(&buttons)		));
-	rootMenu.add(new MenuItem("Motor Left diag",	Motor::diagnostics,		(void *)(&motorLeft)	));
-	rootMenu.add(new MenuItem("MotorRight diag",	Motor::diagnostics,		(void *)(&motorRight)	));
+	rootMenu.add(new MenuItem("Motor (L) diag ",	Motor::diagnostics,		(void *)(&motorLeft)	));
+	rootMenu.add(new MenuItem("Motor (R) diag ",	Motor::diagnostics,		(void *)(&motorRight)	));
 	
 	
 	/*-----( Other Initializatons [TODO: to be added to classes...])-----*/
