@@ -21,8 +21,10 @@ protected:
 public:
 	 Chassis();
 	 static void interactive(void * _this);
-	 void setDirection(int direction);
-	 void setPower(int power);
+	 void pointAt(int direction);
+	 void forward(int power);
+	 void backward(int power);
+	 
 };
 #endif
 
