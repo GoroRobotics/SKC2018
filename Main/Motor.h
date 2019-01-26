@@ -45,6 +45,7 @@ public:
 	static void diagnostics(void * _this);
 	void start();
 	void stop();
+	void disableMotor();
 	void setPower(int power);
 };
 

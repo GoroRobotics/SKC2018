@@ -82,8 +82,8 @@ void Chassis::interactive(void * _this) {
 
 	} while (buttons.lastKeyPressed() != ENTER);
 	
-	motorLeft.stop();
-	motorRight.stop();
+	motorLeft.disableMotor();
+	motorRight.disableMotor();
 
 }
 
